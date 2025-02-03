@@ -8,7 +8,6 @@
 ## DESCRIPTION ABOUT ME:
 I am a male. I practice guitar as a hobby. My favorite programming language is Javascript. My favorite food is rice. I like animals.
 
-### TEAM MEMBERS:
 **Member 2** <br>
 **NAME:**  KINKA B. SUGIMOTO <br>
 **COURSE & YEAR:**  BSIT 3 

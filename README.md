@@ -1,12 +1,23 @@
-# IT342-HaponGO-Repository
+# README.md
 
-## System Name
+## HaponGO
 
 ### Product Description
+HaponGO provides a convenient and effective method for acquiring Japanese language proficiency.  Through a structured curriculum and engaging exercises, users can develop skills in reading, writing, listening, and speaking.  HaponGO facilitates personalized learning, enabling users to achieve their language learning goals at their own pace.  The app serves as a valuable resource for individuals seeking to enhance their communication skills for academic, professional, or personal enrichment.
 
 ### List of Features
-- feature 1
-- feature 2 
+<ul>
+<li>User Dashboard</li>
+<li>Language Reading Course </li>
+<li>Japanese Language Dictionary </li>
+<li>Calligraphy Practice </li>
+<li>Push Notification </li>
+<li>Pronunciation Guide </li>
+<li>Course Gamification </li>
+<li>Leaderboard System </li>
+<li>Admin Dashboard </li>
+<li>Payment Module </li>
+</ul>
 
 ### Links:
 

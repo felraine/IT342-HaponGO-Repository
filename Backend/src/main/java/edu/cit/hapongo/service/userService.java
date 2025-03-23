@@ -27,6 +27,5 @@ public class UserService {
             }
         }
         return null; // Invalid name or password
-    }
-    
+    }   
 }

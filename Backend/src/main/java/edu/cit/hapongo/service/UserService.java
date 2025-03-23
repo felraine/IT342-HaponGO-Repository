@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
  
 @Service
@@ -27,7 +28,17 @@ public class UserService {
             }
         }
         return null; // Invalid name or password
-    }   
+    }
+    
+    public User register(User user) {
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new RuntimeException("Email already in use");
+        }
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setAccountCreationDate(LocalDateTime.now());
+        return userRepository.save(user);
+    }
 }
 
 

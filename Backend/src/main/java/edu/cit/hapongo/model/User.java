@@ -40,8 +40,14 @@ public class User {
 
     @Column(name = "accountCreationDate")
     private LocalDateTime accountCreationDate;
+    
+    
+    public User() {
+    	this.isAdmin = false;
+		this.subscriptionStatus = false;
+	}
 
-    // Getters and Setters
+	// Getters and Setters
     public int getUserId() {
         return userId;
     }

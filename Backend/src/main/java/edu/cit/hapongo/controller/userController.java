@@ -5,33 +5,25 @@ import java.util.List;
 import org.springframework.web.bind.annotation.RequestMapping;
 import edu.cit.hapongo.model.User;
 import edu.cit.hapongo.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.Optional;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
 
+    @Autowired
     private UserService userService;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestParam String name, @RequestParam String password) {
+        User user = userService.login(name, password);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid name or password");
+        }
     }
-
-    //Get all users
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
-    }
-
-    //get user by name
-    @GetMapping("/name/{name}")
-    public Optional<User> getUserByName(@PathVariable String name) {
-        return userService.getUserByName(name);
-    }
-    
 }

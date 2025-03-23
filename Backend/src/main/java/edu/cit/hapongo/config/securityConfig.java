@@ -10,14 +10,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 @Configuration
 @EnableWebSecurity
 public class securityConfig {
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(authorizeRequests -> 
-                authorizeRequests.anyRequest().authenticated())
-                .oauth2Login(oauth2->oauth2.defaultSuccessUrl("http://localhost:8080/user-info", true))
-                .logout(logout->logout.logoutSuccessUrl("/"))
-                .formLogin(form->form.defaultSuccessUrl("/secured", true))
+                    authorizeRequests
+                        .requestMatchers("/api/users/login").permitAll() // Allow unauthenticated access to login endpoint
+                        .anyRequest().authenticated()) // All other endpoints require authentication
+                .oauth2Login(oauth2 -> oauth2.defaultSuccessUrl("http://localhost:8080/user-info", true))
+                .logout(logout -> logout.logoutSuccessUrl("/"))
+                .formLogin(form -> form.defaultSuccessUrl("/secured", true))
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }

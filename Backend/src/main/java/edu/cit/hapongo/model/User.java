@@ -38,7 +38,7 @@ public class User {
     @JsonIgnore
     private byte[] profilePicture;
 
-    @Column(name = "accountCreationDate", nullable = false)
+    @Column(name = "accountCreationDate")
     private LocalDateTime accountCreationDate;
 
     // Getters and Setters

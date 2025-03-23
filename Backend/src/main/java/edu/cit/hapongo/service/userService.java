@@ -28,6 +28,11 @@ public class UserService {
         }
         return null; // Invalid name or password
     }   
+
+    //get user by name
+    public Optional<User> getUserByName(String name) {
+        return userRepository.findByName(name);
+    }
 }
 
 

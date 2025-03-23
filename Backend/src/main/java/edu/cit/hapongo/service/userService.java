@@ -7,25 +7,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+ 
 @Service
 public class UserService {
 
     @Autowired
     private UserRepository userRepository;
 
-<<<<<<< HEAD
-    //Get all users
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    //Get user by name
-    public Optional<User> getUserByName(String name) {
-        return userRepository.findByName(name);
-    }
-    
-=======
     @Autowired
     private PasswordEncoder passwordEncoder; 
 
@@ -40,5 +28,6 @@ public class UserService {
         }
         return null; // Invalid name or password
     }   
->>>>>>> 5248e1f363c3952e0f8e78ed784249d2e2d09123
 }
+
+

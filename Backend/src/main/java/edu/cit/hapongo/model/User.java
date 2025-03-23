@@ -2,6 +2,8 @@ package edu.cit.hapongo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
 
@@ -14,12 +16,15 @@ public class User {
     private int userId;
 
     @Column(name = "name", unique = true, nullable = false)
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @Column(unique = true, nullable = false)
+    @Email(message = "Email should be valid")
     private String email;
 
     @Column(nullable = false)
+    @NotBlank(message = "Password is mandatory")
     private String password;
 
     @Column(name = "isAdmin", nullable = false)

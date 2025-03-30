@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import reactLogo from "../assets/react.svg";
 import viteLogo from '/vite.svg'
-import "../templates/App.css"; 
+import "../templates/loginStyle.css"; 
 
 
 function Login() {
@@ -12,8 +12,8 @@ function Login() {
         <h1 className="title">HaponGO</h1>
       </header>
       
-    {/* Login Container (Flexbox for side-by-side layout) */}
     <div className="login-container">
+
         {/* Login Section */}
         <div className="login-section">
           <h1 className="second-title">Start your Japanese <br />Journey Today</h1>
@@ -28,7 +28,7 @@ function Login() {
               <input type="password" className="input" /> <br />
               <button type="submit" className="button">Sign in</button>
 
-              {/* Sign up section (inline) */}
+              {/* Sign up section*/}
               <div className="signup-container">
                 <p className="signup-desc">
                   Don't have an account? <a href="/register" className="signup-link">Sign up Here</a>
@@ -38,7 +38,7 @@ function Login() {
           </div>
         </div>
 
-        {/* SVG Image on Right Side */}
+        {/* Image Section */}
         <img src="/haponGO-image.svg" alt="HaponGO" className="haponGO-image" />
       </div>
     </>

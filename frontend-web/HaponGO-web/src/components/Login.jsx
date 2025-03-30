@@ -8,6 +8,7 @@ function Login() {
   return (
     <>
       {/* Header */}
+      <title>HaponGO</title>
       <header className="App-header">
         <h1 className="title">HaponGO</h1>
       </header>

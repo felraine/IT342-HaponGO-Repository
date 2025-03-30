@@ -20,6 +20,14 @@
   margin-bottom: 10px;
 }
 
+.login-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  width: 80%;
+  margin: auto;
+ 
+}
 /*login section*/
 .login-section{
   margin-top: 50px;
@@ -34,6 +42,7 @@
   width: 350px;
   height: 250px;
   text-align: left;
+  
 }
 
 
@@ -84,4 +93,12 @@
 .signup-link:hover {
   text-decoration: underline;
   color: #9a0024;
+}
+
+/*HAPONGO IMAGE*/
+.haponGO-image {
+  width: auto; 
+  max-width: 440px; 
+  height: auto;
+  margin-top: 20px;
 }

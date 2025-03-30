@@ -17,7 +17,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
     //login user
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password) {

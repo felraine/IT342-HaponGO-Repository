@@ -5,32 +5,36 @@ import "../templates/App.css";
 
 
 function Login() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      {/* Header */}
+      <header className="App-header">
+        <h1 className="title">HaponGO</h1>
+      </header>
+
+      {/* Login Section */}
+      <div className="login-section">
+      <h1 className="second-title">Start your Japanese Journey Today</h1>
+      <p>Learn Japanese the fun and easy way with HaponGO.</p>
+
+      {/* Login Forms */}
+      <div className="login-form">
+        <form className="form">
+          <label className="label">Email</label>
+          <input type="text" className="input" /> <br />
+          <label className="label">Password</label>
+          <input type="password" className="input" /> <br />
+          <button type="submit" className="button">Login</button>
+
+          {/* Sign up link area */}
+          <div className="signup-container">
+            <p className="signup-desc">Don't have an account? <a href="/register" className="signup-link">Sign up Here</a></p>
+          </div>
+        </form>
+       </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> hello testing
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
 export default Login

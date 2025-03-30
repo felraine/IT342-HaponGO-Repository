@@ -1,6 +1,9 @@
 package edu.cit.hapongo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -9,22 +12,25 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
+//@JsonIgnoreProperties(value = { "email", "password", "name" }, allowGetters = false)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
 
-    @Column(name = "name", unique = true, nullable = false)
+    @Column(name = "name", nullable = false)
     @NotBlank(message = "Name is mandatory")
     private String name;
 
     @Column(unique = true, nullable = false)
     @Email(message = "Email should be valid")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String email;
 
     @Column(nullable = false)
     @NotBlank(message = "Password is mandatory")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "isAdmin", nullable = false)
@@ -112,7 +118,6 @@ public class User {
         return "User{" +
                 "userId=" + userId +
                 ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
                 ", isAdmin=" + isAdmin +
                 ", subscriptionStatus=" + subscriptionStatus +
                 ", accountCreationDate=" + accountCreationDate +

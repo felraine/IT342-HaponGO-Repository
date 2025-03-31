@@ -1,0 +1,104 @@
+.App-header {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  width: 100%;
+}
+
+.title {
+  margin: 0;
+  font-size: 30px;
+  color: white;
+  background-color: #BC002D;
+  padding: 30px;
+  padding-left: 80px;
+  text-align: left;
+}
+
+.second-title {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: black;
+  font-size: 44px;
+  margin-bottom: 10px;
+}
+
+.login-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  width: 80%;
+  margin: auto;
+ 
+}
+/*login section*/
+.login-section{
+  margin-top: 50px;
+  padding-left: 80px; /*match padding with .title*/
+}
+/*login box */
+.login-form {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  height: 250px;
+  text-align: left;
+  
+}
+
+
+/* Input fields */
+.input {
+  width: 95%;
+  padding: 8px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Button styling */
+.button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background-color: #BC002D; 
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.button:hover {
+  background-color: #9a0024; 
+}
+
+/*SIGNUP SECTION*/
+
+.signup-desc {
+  font-size: 14px;
+  color: black;
+  padding: 8px;
+  margin: 10px;
+  text-align: center;
+}
+
+.signup-link {
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+  text-decoration: underline;
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+  color: #9a0024;
+}
+
+/*HAPONGO IMAGE*/
+.haponGO-image {
+  width: auto; 
+  max-width: 440px; 
+  height: auto;
+  margin-top: 20px;
+}

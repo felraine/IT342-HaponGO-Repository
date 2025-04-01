@@ -1,7 +1,6 @@
 package edu.cit.hapongo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.*;
@@ -9,10 +8,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
-//@JsonIgnoreProperties(value = { "email", "password", "name" }, allowGetters = false)
 public class User {
 
     @Id
@@ -46,6 +45,10 @@ public class User {
 
     @Column(name = "accountCreationDate")
     private LocalDateTime accountCreationDate;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore  
+    private List<Leaderboards> leaderboards;
 
     // Getters and Setters
     public int getUserId() {
@@ -112,7 +115,14 @@ public class User {
         this.accountCreationDate = accountCreationDate;
     }
 
-    // Override toString (excluding sensitive fields like password and profilePicture)
+    public List<Leaderboards> getLeaderboards() {
+        return leaderboards;
+    }
+
+    public void setLeaderboards(List<Leaderboards> leaderboards) {
+        this.leaderboards = leaderboards;
+    }
+
     @Override
     public String toString() {
         return "User{" +

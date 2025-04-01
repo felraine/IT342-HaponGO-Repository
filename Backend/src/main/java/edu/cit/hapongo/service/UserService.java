@@ -83,5 +83,14 @@
             } else {
                 throw new RuntimeException("User not found with ID: " + userId);
             }
-        }        
+        }
+        //delete user
+        public void deleteUser(int userId) {
+            Optional<User> existingUserOptional = userRepository.findById(userId);
+            if (existingUserOptional.isPresent()) {
+                userRepository.delete(existingUserOptional.get());
+            } else {
+                throw new RuntimeException("User not found with ID: " + userId);
+            }
+        }
     }

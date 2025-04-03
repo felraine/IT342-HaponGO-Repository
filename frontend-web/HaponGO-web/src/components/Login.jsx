@@ -1,6 +1,6 @@
 
 
-function Login() {
+export default function Login() {
   return (
     <>
       {/* Header */}
@@ -47,4 +47,3 @@ function Login() {
   );
 }
 
-export default Login

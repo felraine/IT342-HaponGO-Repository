@@ -20,7 +20,7 @@ export default function Login() {
           <p className="text-12">Learn Japanese the fun and easy way with HaponGO.</p>
 
           {/* Login Container */}
-          <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-[400px] text-left mt-4">
+          <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-[400px] text-left mt-4">
             <form className="space-y-3">
               <label className="block">Email</label>
               <input type="text" className="w-full h-10 p-2 border border-gray-300 rounded-md text-lg" />

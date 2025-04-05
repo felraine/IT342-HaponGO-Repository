@@ -1,6 +1,13 @@
 
+import { useNavigate } from 'react-router-dom';
 export default function Dashboard(){
+    const navigate = useNavigate();
 
+    //navigate to LessonOne
+    const goToLessonOne =() => {
+        navigate('/lesson-one');
+    };
+    
     return (
         <>
       {/* Header */}
@@ -26,26 +33,43 @@ export default function Dashboard(){
 
         {/*List of lesson cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pl-12 pr-12">
-            <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ">
-                <h3 className="text-lg font-bold">Lesson 1</h3>
-                <p className="text-sm">Basic Greetings</p>
-            </div>
-            <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                <h3 className="text-lg font-bold">Lesson 2</h3>
-                <p className="text-sm">Basic Hiragana</p>
-            </div>
-            <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                <h3 className="text-lg font-bold">Lesson 3</h3>
-                <p className="text-sm">Numbers and Counting</p>
-            </div>
-            <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                <h3 className="text-lg font-bold">Lesson 4</h3>
-                <p className="text-sm">Basic Vocabulary</p>
+            
+          {/*  Lesson 1 Card */}
+          <div
+            onClick={goToLessonOne}
+            className="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+          >
+            <img
+              src="/haponGO-image.svg"
+              alt="Lesson 1"
+              className="w-full max-w-[300px] h-40 object-contain mb-4 mx-auto"
+            />
+            <h3 className="text-lg font-bold">Lesson 1</h3>
+            <p className="text-sm">Basic Greetings</p>
+          </div>
 
-                 </div>
-            </div>
-
+          {/* Static Lessons for now */}
+          <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+          <img
+              src="/haponGO-image.svg"
+              alt="Lesson 1"
+              className="w-full max-w-[300px] h-40 object-contain mb-4 mx-auto"
+            />
+            <h3 className="text-lg font-bold">Lesson 2</h3>
+            <p className="text-sm">Basic Hiragana</p>
+          </div>
+          <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+          <img
+              src="/haponGO-image.svg"
+              alt="Lesson 1"
+              className="w-full max-w-[300px] h-40 object-contain mb-4 mx-auto"
+            />
+            <h3 className="text-lg font-bold">Lesson 3</h3>
+            <p className="text-sm">Numbers and Counting</p>
+          </div>
         </div>
+
+      </div>
     </>
     );
 }

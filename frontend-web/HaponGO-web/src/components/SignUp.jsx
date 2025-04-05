@@ -7,7 +7,7 @@ export default function SignUp() {
     password: '',
     confirmPassword: '',
   });
-
+  
   const handleChange = (e) => {
     setFormData(prev => ({
       ...prev,
@@ -15,6 +15,9 @@ export default function SignUp() {
     }));
   };
 
+
+  // Register a new user
+  // Send a POST request to the server with the form data
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -66,6 +69,7 @@ export default function SignUp() {
           </h1>
           <p className="text-12">Learn Japanese the fun and easy way with HaponGO.</p>
 
+          {/* Sign up form here */}
           <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-[400px] text-left mt-4 mb-10">
             <form className="space-y-3" onSubmit={handleSubmit}>
               <label className="block">Username</label>
@@ -111,6 +115,7 @@ export default function SignUp() {
                 Sign up
               </button>
 
+              {/* Login link here */}
               <div className="text-center mt-3">
                 <p className="text-sm text-black">
                   Already have an account? <a href="/" className="font-bold underline hover:text-[#9a0024]">Sign in here.</a>
@@ -120,6 +125,7 @@ export default function SignUp() {
           </div>
         </div>
 
+        {/* Image here */}
         <img src="/haponGO-image.svg" alt="HaponGO" className="max-w-[80%] lg:max-w-[440px] h-auto mt-5 mr-10" />
       </div>
     </>

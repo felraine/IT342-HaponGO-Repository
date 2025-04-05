@@ -39,6 +39,8 @@
         
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setAccountCreationDate(LocalDateTime.now());
+            user.setSubscriptionStatus(false);
+            user.setAdmin(false);
             return userRepository.save(user);
         }
 

@@ -1,9 +1,44 @@
-
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/users/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`,
+        {
+          method: "POST",
+        }
+      );
+
+      if (!response.ok) {
+        const message = await response.text();
+        setError(message || "Login failed.");
+        return;
+      }
+
+      const data = await response.json();
+      console.log("Login successful!", data);
+
+      // Example: Store token/user in localStorage if needed
+      // localStorage.setItem("user", JSON.stringify(data));
+
+      navigate("/dashboard"); // redirect after successful login
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("An unexpected error occurred.");
+    }
+  };
+
   return (
     <>
-      {/* Header */}
       <title>HaponGO</title>
       <header className="w-full font-sans">
         <h1 className="m-0 text-[40px] text-white bg-[#BC002D] font-bold py-3 pl-20 text-left">
@@ -12,39 +47,61 @@ export default function Login() {
       </header>
 
       <div className="flex flex-col lg:flex-row items-center justify-between w-4/5 mx-auto mt-12 text-center lg:text-left">
-        {/* Title Section */}
         <div className="lg:pl-20 flex flex-col items-center lg:items-start">
           <h1 className="text-black text-[36px] lg:text-[44px] mb-1 font-bold">
             Start your Japanese <br className="hidden lg:block" /> Journey Today
           </h1>
-          <p className="text-12">Learn Japanese the fun and easy way with HaponGO.</p>
+          <p className="text-12">
+            Learn Japanese the fun and easy way with HaponGO.
+          </p>
 
-          {/* Login Container */}
           <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-[400px] text-left mt-4">
-            <form className="space-y-3">
+            <form className="space-y-3" onSubmit={handleLogin}>
               <label className="block">Email</label>
-              <input type="text" className="w-full h-10 p-2 border border-gray-300 rounded-md text-lg" />
+              <input
+                type="text"
+                className="w-full h-10 p-2 border border-gray-300 rounded-md text-lg"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
               <label className="block">Password</label>
-              <input type="password" className="w-full h-10 p-2 border border-gray-300 rounded-md text-lg" />
-              <button type="submit" className="w-full h-10 py-1 bg-[#BC002D] text-white text-lg rounded-md mt-2 hover:bg-[#9a0024]">
+              <input
+                type="password"
+                className="w-full h-10 p-2 border border-gray-300 rounded-md text-lg"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              {error && (
+                <p className="text-red-600 text-sm mt-1">{error}</p>
+              )}
+              <button
+                type="submit"
+                className="w-full h-10 py-1 bg-[#BC002D] text-white text-lg rounded-md mt-2 hover:bg-[#9a0024]"
+              >
                 Sign in
               </button>
 
-              {/* Sign up section*/}
               <div className="text-center mt-3">
                 <p className="text-sm text-black">
-                  Don't have an account? <a href="/register" className="font-bold underline hover:text-[#9a0024]">Sign up here.</a>
+                  Don't have an account?{" "}
+                  <a
+                    href="/register"
+                    className="font-bold underline hover:text-[#9a0024]"
+                  >
+                    Sign up here.
+                  </a>
                 </p>
-                <a href="/dashboard" className="text-sm text-black underline hover:text-[#9a0024]">Temporary Login</a>
               </div>
             </form>
           </div>
         </div>
 
-        {/* Image Section */}
-        <img src="/haponGO-image.svg" alt="HaponGO" className="max-w-[80%] lg:max-w-[440px] h-auto mt-5 mr-10" />
+        <img
+          src="/haponGO-image.svg"
+          alt="HaponGO"
+          className="max-w-[80%] lg:max-w-[440px] h-auto mt-5 mr-10"
+        />
       </div>
     </>
   );
 }
-

@@ -35,6 +35,7 @@ export default function Login() {
                 <p className="text-sm text-black">
                   Don't have an account? <a href="/register" className="font-bold underline hover:text-[#9a0024]">Sign up here.</a>
                 </p>
+                <a href="/dashboard" className="text-sm text-black underline hover:text-[#9a0024]">Temporary Login</a>
               </div>
             </form>
           </div>

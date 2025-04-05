@@ -7,6 +7,8 @@ export default function Login() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  // User login function
+  // Send a POST request to the server with the email and password
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -52,9 +54,9 @@ export default function Login() {
             Start your Japanese <br className="hidden lg:block" /> Journey Today
           </h1>
           <p className="text-12">
-            Learn Japanese the fun and easy way with HaponGO.
-          </p>
-
+            Learn Japanese the fun and easy way with HaponGO.</p>
+          
+          {/* Login form here */}
           <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-[400px] text-left mt-4">
             <form className="space-y-3" onSubmit={handleLogin}>
               <label className="block">Email</label>
@@ -62,8 +64,7 @@ export default function Login() {
                 type="text"
                 className="w-full h-10 p-2 border border-gray-300 rounded-md text-lg"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+                onChange={(e) => setEmail(e.target.value)}/>
               <label className="block">Password</label>
               <input
                 type="password"
@@ -76,31 +77,21 @@ export default function Login() {
               )}
               <button
                 type="submit"
-                className="w-full h-10 py-1 bg-[#BC002D] text-white text-lg rounded-md mt-2 hover:bg-[#9a0024]"
-              >
-                Sign in
-              </button>
-
+                className="w-full h-10 py-1 bg-[#BC002D] text-white text-lg rounded-md mt-2 hover:bg-[#9a0024]">Sign in</button>
+              
+              {/*Register link here */}
               <div className="text-center mt-3">
                 <p className="text-sm text-black">
                   Don't have an account?{" "}
-                  <a
-                    href="/register"
-                    className="font-bold underline hover:text-[#9a0024]"
-                  >
-                    Sign up here.
-                  </a>
+                  <a href="/register" className="font-bold underline hover:text-[#9a0024]"> Sign up here.</a>
                 </p>
               </div>
             </form>
           </div>
-        </div>
 
-        <img
-          src="/haponGO-image.svg"
-          alt="HaponGO"
-          className="max-w-[80%] lg:max-w-[440px] h-auto mt-5 mr-10"
-        />
+        </div>
+        {/* Image here */}        
+        <img src="/haponGO-image.svg"alt="HaponGO" className="max-w-[80%] lg:max-w-[440px] h-auto mt-5 mr-10"/>
       </div>
     </>
   );

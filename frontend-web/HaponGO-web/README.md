@@ -10,3 +10,4 @@ Currently, two official plugins are available:
 
 ## Tailwind 
 npm install tailwindcss @tailwindcss/vite
+npm install framer-motion

@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_leaderboards"
+        android:icon="@drawable/ic_leaderboard"
+        android:title="Leaderboards" />
+    <item
+        android:id="@+id/nav_subscription"
+        android:icon="@drawable/ic_subscription"
+        android:title="Subscription" />
+    <item
+        android:id="@+id/nav_dictionary"
+        android:icon="@drawable/ic_dictionary"
+        android:title="Dictionary" />
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/ic_logout"
+        android:title="Logout" />
+</menu>

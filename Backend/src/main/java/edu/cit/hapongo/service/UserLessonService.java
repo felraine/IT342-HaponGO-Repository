@@ -5,7 +5,7 @@ import edu.cit.hapongo.model.User;
 import edu.cit.hapongo.model.UserLesson;
 import edu.cit.hapongo.repository.LessonRepository;
 import edu.cit.hapongo.repository.UserLessonRepository;
-import edu.cit.hapongo.repository.UserRepository;  // Add this for accessing User
+import edu.cit.hapongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

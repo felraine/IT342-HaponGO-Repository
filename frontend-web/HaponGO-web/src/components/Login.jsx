@@ -11,7 +11,7 @@ export default function Login() {
   // Send a POST request to the server with the email and password
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await fetch(
         `http://localhost:8080/api/users/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`,
@@ -19,25 +19,31 @@ export default function Login() {
           method: "POST",
         }
       );
-
+  
       if (!response.ok) {
         const message = await response.text();
         setError(message || "Login failed.");
         return;
       }
-
+  
       const data = await response.json();
       console.log("Login successful!", data);
-
-      // Example: Store token/user in localStorage if needed
+  
+      // Example: Store user data or token if needed
       // localStorage.setItem("user", JSON.stringify(data));
-
-      navigate("/dashboard"); // redirect after successful login
+  
+      // Check if user is admin and navigate accordingly
+      if (data.admin === true || data.admin === 1) {
+        navigate("/admin-dashboard");
+      } else {
+        navigate("/dashboard");
+      }
+      
     } catch (err) {
       console.error("Login error:", err);
       setError("An unexpected error occurred.");
     }
-  };
+  };  
 
   return (
     <>

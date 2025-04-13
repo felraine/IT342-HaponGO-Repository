@@ -9,5 +9,4 @@ public class HapongoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HapongoApplication.class, args);
 	}
-
 }

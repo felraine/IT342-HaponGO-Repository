@@ -1,6 +1,7 @@
 package edu.cit.hapongo.model;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "lessons")
@@ -15,6 +16,12 @@ public class Lesson {
 
     @Column(name = "max_score", nullable = false)
     private int maxScore;
+
+    //@OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL, orphanRemoval = true)
+    //private List<LessonContent> lessonContents;
+
+    //@OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL, orphanRemoval = true)
+    //private List<LessonQuiz> lessonQuizzes;
 
     // Constructors
     public Lesson() {
@@ -49,6 +56,22 @@ public class Lesson {
     public void setMaxScore(int maxScore) {
         this.maxScore = maxScore;
     }
+
+    /*public List<LessonContent> getLessonContents() {
+        return lessonContents;
+    }
+
+    public void setLessonContents(List<LessonContent> lessonContents) {
+        this.lessonContents = lessonContents;
+    }
+
+    public List<LessonQuiz> getLessonQuizzes() {
+        return lessonQuizzes;
+    }
+
+    public void setLessonQuizzes(List<LessonQuiz> lessonQuizzes) {
+        this.lessonQuizzes = lessonQuizzes;
+    }*/
 
     @Override
     public String toString() {

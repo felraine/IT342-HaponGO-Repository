@@ -17,7 +17,7 @@ public class LessonController {
     private LessonService lessonService;
 
     // Create or Update a Lesson
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<Lesson> saveLesson(@RequestBody Lesson lesson) {
         Lesson savedLesson = lessonService.saveLesson(lesson);
         return ResponseEntity.ok(savedLesson);
@@ -43,5 +43,20 @@ public class LessonController {
     public ResponseEntity<Void> deleteLesson(@PathVariable int id) {
         lessonService.deleteLesson(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // Update a Lesson by its ID
+    @PutMapping("/{id}")
+    public ResponseEntity<Lesson> updateLesson(@PathVariable int id, @RequestBody Lesson lesson) {
+        Optional<Lesson> existingLesson = lessonService.getLessonById(id);
+        if (existingLesson.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Update the existing lesson
+        lesson.setLessonId(id);  // Ensure the ID is the same for the update
+        Lesson updatedLesson = lessonService.saveLesson(lesson); // Save the updated lesson
+
+        return ResponseEntity.ok(updatedLesson);
     }
 }

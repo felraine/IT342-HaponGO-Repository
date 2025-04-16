@@ -3,10 +3,13 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 export default function Dashboard(){
   const navigate = useNavigate();
-  const [lessons, setLessons] = useState([]); // ✅ Add this
-  const [error, setError] = useState(null);   // ✅ Optional, to track errors
+  const [lessons, setLessons] = useState([]); 
+  const [error, setError] = useState(null);  
 
+  // Get list of existing lessons 
   useEffect(() => {
+    
+    // Fetch lessons 
     const fetchLessons = async () => {
       try {
         const response = await fetch('http://localhost:8080/api/lessons');
@@ -20,6 +23,7 @@ export default function Dashboard(){
 
     fetchLessons();
   }, []);
+
     return (
         <>
       {/* Header */}

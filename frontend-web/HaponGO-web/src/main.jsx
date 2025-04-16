@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Login.jsx';
 import SignUp from './components/SignUp.jsx';
 import Dashboard from './components/Dashboard.jsx';
-import LessonOne from './components/LessonOne.jsx';
+import LessonView from './components/LessonView.jsx';
 import AdminDashboard from './components/AdminDashboard.jsx';
 import AdminLessonPage from './components/AdminLessonPage.jsx';
 
@@ -17,7 +17,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/lesson-one" element={<LessonOne />} />
+        <Route path="/lesson/:lessonId" element={<LessonView />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/admin-lesson/:id" element={<AdminLessonPage />} />
       </Routes>

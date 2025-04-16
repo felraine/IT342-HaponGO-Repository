@@ -1,13 +1,25 @@
 
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 export default function Dashboard(){
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [lessons, setLessons] = useState([]); // ✅ Add this
+  const [error, setError] = useState(null);   // ✅ Optional, to track errors
 
-    //navigate to LessonOne
-    const goToLessonOne =() => {
-        navigate('/lesson-one');
+  useEffect(() => {
+    const fetchLessons = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/lessons');
+        const data = await response.json();
+        setLessons(data);
+      } catch (err) {
+        console.error('Failed to fetch lessons:', err);
+        setError('Failed to fetch lessons');
+      }
     };
-    
+
+    fetchLessons();
+  }, []);
     return (
         <>
       {/* Header */}
@@ -29,44 +41,28 @@ export default function Dashboard(){
         </div>
 
         {/* Lessons Container*/}
-        <div className="bg-[#FFE79B] p-8  shadow-xl w-full min-h-screen text-left mt-4">
+        <div className="bg-[#FFE79B] p-8 shadow-xl w-full min-h-screen text-left mt-4">
 
-        {/*List of lesson cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pl-12 pr-12">
-            
-          {/*  Lesson 1 Card */}
-          <div
-            onClick={goToLessonOne}
-            className="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer"
-          >
-            <img
-              src="/haponGO-image.svg"
-              alt="Lesson 1"
-              className="w-full max-w-[300px] h-40 object-contain mb-4 mx-auto"
-            />
-            <h3 className="text-lg font-bold">Lesson 1</h3>
-            <p className="text-sm">Basic Greetings</p>
-          </div>
-
-          {/* Static Lessons for now */}
-          <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-          <img
-              src="/haponGO-image.svg"
-              alt="Lesson 1"
-              className="w-full max-w-[300px] h-40 object-contain mb-4 mx-auto"
-            />
-            <h3 className="text-lg font-bold">Lesson 2</h3>
-            <p className="text-sm">Basic Hiragana</p>
-          </div>
-          <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-          <img
-              src="/haponGO-image.svg"
-              alt="Lesson 1"
-              className="w-full max-w-[300px] h-40 object-contain mb-4 mx-auto"
-            />
-            <h3 className="text-lg font-bold">Lesson 3</h3>
-            <p className="text-sm">Numbers and Counting</p>
-          </div>
+          {lessons.length > 0 ? (
+            lessons.map((lesson) => (
+              <div
+                key={lesson.lessonId}
+                onClick={() => navigate(`/lesson/${lesson.lessonId}`)}
+                className="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+              >
+                <img
+                  src="/haponGO-image.svg"
+                  alt={`Lesson ${lesson.lessonId}`}
+                  className="w-full max-w-[300px] h-40 object-contain mb-4 mx-auto"
+                />
+                <h3 className="text-lg font-bold">Lesson {lesson.lessonId}</h3>
+                <p className="text-sm">{lesson.lessonName}</p>
+              </div>
+            ))
+          ) : (
+            <p className="col-span-full text-center text-gray-500">No lessons available.</p>
+          )}
         </div>
 
       </div>

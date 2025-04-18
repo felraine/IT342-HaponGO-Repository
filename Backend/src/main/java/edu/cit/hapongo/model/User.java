@@ -38,7 +38,7 @@ public class User {
     @Column(name = "subscriptionStatus", nullable = false)    // Subscription status of the user
     private boolean subscriptionStatus;
 
-    @Lob
+    @Lob                                                      // Profile picture of the user
     @Column(columnDefinition = "MEDIUMBLOB")
     @JsonIgnore
     private byte[] profilePicture;

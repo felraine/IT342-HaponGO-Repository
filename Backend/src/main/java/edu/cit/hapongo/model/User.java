@@ -16,7 +16,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userId;
+    private long userId;
 
     @Column(name = "name", nullable = false)                 // Name of the user
     @NotBlank(message = "Name is mandatory")
@@ -51,11 +51,11 @@ public class User {
     private List<Leaderboards> leaderboards;
 
     // Getters and Setters
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

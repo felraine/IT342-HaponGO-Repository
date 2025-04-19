@@ -148,7 +148,7 @@ export default function LessonPage() {
       <div className="bg-[#FFFBED] p-8 shadow-xl w-full min-h-screen text-left mt-2">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-black text-left text-[18px] lg:text-[22px] font-bold pl--20">
-            Lesson {lessonName}
+            {lessonName}
           </h2>
           <button
             className="bg-green-500 text-white p-2 rounded-lg"

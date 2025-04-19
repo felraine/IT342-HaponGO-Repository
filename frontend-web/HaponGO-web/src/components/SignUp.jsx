@@ -21,14 +21,18 @@ export default function SignUp() {
     }
   
     const toast = document.createElement("div");
-    const icon =
-      type === "success"
-        ? `<svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/></svg>`
-        : `<svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0ZM9 9V5h2v4H9Zm0 2h2v2H9v-2Z"/></svg>`;
+  
+    const isSuccess = type === "success";
+  
+    const icon = isSuccess
+      ? `<svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/></svg>`
+      : `<svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0ZM9 9V5h2v4H9Zm0 2h2v2H9v-2Z"/></svg>`;
+  
+    const iconColorClass = isSuccess ? "text-green-500 bg-green-100 dark:bg-green-800 dark:text-green-200" : "text-red-500 bg-red-100 dark:bg-red-800 dark:text-red-200";
   
     toast.innerHTML = `
       <div class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800" role="alert">
-        <div class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+        <div class="inline-flex items-center justify-center shrink-0 w-8 h-8 ${iconColorClass} rounded-lg">
           ${icon}
           <span class="sr-only">Icon</span>
         </div>
@@ -71,7 +75,8 @@ export default function SignUp() {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match.");
+      //alert("Passwords do not match.");
+      showToast("Passwords do not match, please try again.", "error");
       return;
     }
 
@@ -99,7 +104,8 @@ export default function SignUp() {
 
     } catch (error) {
       console.error("Error during registration:", error);
-      alert("Something went wrong. Please try again later.");
+     alert("Something went wrong. Please try again later.");
+     
     }
   };
 

@@ -16,16 +16,24 @@ export default function LessonPage() {
 
   const fetchLessonData = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/lesson-contents/lesson/${id}`);
-      const data = await response.json();
-      setLessonName(data[0]?.lesson?.lessonName || "");
-      setLessonContent(data);
+      // Fetching the lesson data by its ID
+      const lessonResponse = await fetch(`http://localhost:8080/api/lessons/${id}`);
+      const lessonData = await lessonResponse.json();
+  
+      // Fetching the lesson content data
+      const contentResponse = await fetch(`http://localhost:8080/api/lesson-contents/lesson/${id}`);
+      const contentData = await contentResponse.json();
+  
+      // Set the lesson name and content data
+      setLessonName(lessonData?.lessonName || "");
+      setLessonContent(contentData);
+  
     } catch (err) {
       console.error("Error fetching lesson data:", err);
     } finally {
       setIsLoading(false);
     }
-  };
+  };  
 
   useEffect(() => {
     fetchLessonData();
@@ -140,7 +148,7 @@ export default function LessonPage() {
       <div className="bg-[#FFFBED] p-8 shadow-xl w-full min-h-screen text-left mt-2">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-black text-left text-[18px] lg:text-[22px] font-bold pl--20">
-            Lesson {id}: {lessonName}
+            {lessonName}
           </h2>
           <button
             className="bg-green-500 text-white p-2 rounded-lg"

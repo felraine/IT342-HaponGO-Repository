@@ -60,8 +60,7 @@ export default function Dashboard(){
                   alt={`Lesson ${lesson.lessonId}`}
                   className="w-full max-w-[300px] h-40 object-contain mb-4 mx-auto"
                 />
-                <h3 className="text-lg font-bold">Lesson {lesson.lessonId}</h3>
-                <p className="text-sm">{lesson.lessonName}</p>
+                <h3 className="text-lg font-bold">{lesson.lessonName}</h3>
               </div>
             ))
           ) : (

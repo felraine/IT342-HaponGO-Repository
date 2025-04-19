@@ -8,7 +8,7 @@ public class LessonContent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int lessonContentId;
+    private long lessonContentId;
 
     @ManyToOne
     @JoinColumn(name = "lesson_id", nullable = false)
@@ -35,11 +35,11 @@ public class LessonContent {
     }
 
     // Getters and Setters
-    public int getLessonContentId() {
+    public long getLessonContentId() {
         return lessonContentId;
     }
 
-    public void setLessonContentId(int lessonContentId) {
+    public void setLessonContentId(long lessonContentId) {
         this.lessonContentId = lessonContentId;
     }
 

@@ -32,7 +32,7 @@ public class LessonController {
 
     // Get a Lesson by its ID
     @GetMapping("/{id}")
-    public ResponseEntity<Lesson> getLessonById(@PathVariable int id) {
+    public ResponseEntity<Lesson> getLessonById(@PathVariable long id) {
         Optional<Lesson> lesson = lessonService.getLessonById(id);
         return lesson.map(ResponseEntity::ok)
                      .orElseGet(() -> ResponseEntity.notFound().build());
@@ -40,14 +40,14 @@ public class LessonController {
 
     // Delete a Lesson by its ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteLesson(@PathVariable int id) {
+    public ResponseEntity<Void> deleteLesson(@PathVariable long id) {
         lessonService.deleteLesson(id);
         return ResponseEntity.noContent().build();
     }
 
     // Update a Lesson by its ID
     @PutMapping("/{id}")
-    public ResponseEntity<Lesson> updateLesson(@PathVariable int id, @RequestBody Lesson lesson) {
+    public ResponseEntity<Lesson> updateLesson(@PathVariable long id, @RequestBody Lesson lesson) {
         Optional<Lesson> existingLesson = lessonService.getLessonById(id);
         if (existingLesson.isEmpty()) {
             return ResponseEntity.notFound().build();

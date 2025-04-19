@@ -24,7 +24,7 @@ public class LessonContentController {
     // Get a LessonContent by its ID
     // This endpoint retrieves a specific lesson content by its ID.
     @GetMapping("/{id}")
-    public LessonContent getLessonContentById(@PathVariable int id) {
+    public LessonContent getLessonContentById(@PathVariable long id) {
         return lessonContentService.getLessonContentById(id)
                 .orElseThrow(() -> new RuntimeException("LessonContent not found with id: " + id));
     }
@@ -39,14 +39,14 @@ public class LessonContentController {
     // Update an existing LessonContent
     // This endpoint updates an existing lesson content in the database.
     @PutMapping("/{id}")
-    public LessonContent updateLessonContent(@PathVariable int id, @RequestBody LessonContent updatedContent) {
+    public LessonContent updateLessonContent(@PathVariable long id, @RequestBody LessonContent updatedContent) {
         return lessonContentService.updateLessonContent(id, updatedContent);
     }
 
     // Delete a LessonContent by its ID
     // This endpoint deletes a specific lesson content by its ID.
     @DeleteMapping("/{id}")
-    public String deleteLessonContent(@PathVariable int id) {
+    public String deleteLessonContent(@PathVariable long id) {
         lessonContentService.deleteLessonContent(id);
         return "LessonContent with id " + id + " has been deleted.";
     }
@@ -54,7 +54,7 @@ public class LessonContentController {
     // Get all LessonContents by lessonId
     // This endpoint retrieves all lesson contents associated with a specific lesson ID.
     @GetMapping("/lesson/{lessonId}")
-    public List<LessonContent> getLessonContentsByLessonId(@PathVariable int lessonId) {
+    public List<LessonContent> getLessonContentsByLessonId(@PathVariable long lessonId) {
         return lessonContentService.getLessonContentsByLessonId(lessonId);
     }
 }

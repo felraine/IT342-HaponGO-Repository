@@ -20,7 +20,7 @@ public class LessonService {
     }
 
     // Get a Lesson by its ID
-    public Optional<Lesson> getLessonById(int lessonId) {
+    public Optional<Lesson> getLessonById(long lessonId) {
         return lessonRepository.findById(lessonId);
     }
 
@@ -30,7 +30,7 @@ public class LessonService {
     }
 
     // Delete a Lesson by its ID
-    public void deleteLesson(int lessonId) {
+    public void deleteLesson(long lessonId) {
         lessonRepository.deleteById(lessonId);
     }
 }

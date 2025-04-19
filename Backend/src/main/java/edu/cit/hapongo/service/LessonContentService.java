@@ -18,7 +18,7 @@ public class LessonContentService {
         return lessonContentRepository.findAll();
     }
 
-    public Optional<LessonContent> getLessonContentById(int id) {
+    public Optional<LessonContent> getLessonContentById(long id) {
         return lessonContentRepository.findById(id);
     }
 
@@ -26,7 +26,7 @@ public class LessonContentService {
         return lessonContentRepository.save(lessonContent);
     }
 
-    public LessonContent updateLessonContent(int id, LessonContent updatedContent) {
+    public LessonContent updateLessonContent(long id, LessonContent updatedContent) {
         return lessonContentRepository.findById(id).map(existing -> {
             existing.setLesson(updatedContent.getLesson());
             existing.setJapaneseWord(updatedContent.getJapaneseWord());
@@ -36,14 +36,14 @@ public class LessonContentService {
         }).orElseThrow(() -> new RuntimeException("LessonContent not found with id: " + id));
     }
 
-    public void deleteLessonContent(int id) {
+    public void deleteLessonContent(long id) {
         if (!lessonContentRepository.existsById(id)) {
             throw new RuntimeException("LessonContent not found with id: " + id);
         }
         lessonContentRepository.deleteById(id);
     }
 
-    public List<LessonContent> getLessonContentsByLessonId(int lessonId) {
+    public List<LessonContent> getLessonContentsByLessonId(long lessonId) {
         return lessonContentRepository.findByLesson_LessonId(lessonId);
     }
 }

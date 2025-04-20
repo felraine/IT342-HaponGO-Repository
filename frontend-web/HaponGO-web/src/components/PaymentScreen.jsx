@@ -12,8 +12,8 @@ export default function PaymentScreen() {
   const [modalMessage, setModalMessage] = useState('');
   const pollingInterval = useRef(null);
 
-  const secretKey = process.env.REACT_APP_PAYMONGO_SECRET_KEY;
-  const basicAuth = btoa(`${secretKey}:`);
+  const key = process.env.REACT_APP_PAYMONGO_SECRET_KEY;
+  const basicAuth = btoa(`${key}:`);
 
   const handlePayment = async () => {
     if (!amount || isNaN(amount)) {

@@ -1,10 +1,18 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 export default function Dashboard(){
   const navigate = useNavigate();
   const [lessons, setLessons] = useState([]); 
   const [error, setError] = useState(null);  
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+
+  // Function to handle dropdown toggle
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
 
   // Get list of existing lessons 
   useEffect(() => {
@@ -28,20 +36,61 @@ export default function Dashboard(){
         <>
       {/* Header */}
       <title>HaponGO</title>
-      <header className="w-full font-sans">
-        <h1 className="m-0 text-[40px] text-white bg-[#BC002D] font-bold py-3 pl-20 text-left">
+      <header className="w-full font-sans relative bg-[#BC002D]">
+        <h1 className="m-0 text-[40px] text-white font-bold py-3 pl-20 text-left">
           HaponGO
         </h1>
+
+        {/* Profile Dropdown */}
+        <div className="absolute top-5 right-10">
+          <div className="relative">
+            {/* Profile Icon/Button */}
+            <button
+              onClick={toggleDropdown}
+              className="w-12 h-12 rounded-full overflow-hidden border-2 border-white focus:outline-none cursor-pointer"
+            >
+              <img
+                src="icon-shib.png"
+                alt="profile"
+                className="w-full h-full object-cover"
+              />
+            </button>
+
+            {/* Dropdown Menu */}
+            {dropdownOpen && (
+              <div className="flex flex-col absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-3 z-10">
+                <div className="flex flex-col items-center px-4 py-2">
+                  <img
+                    src="icon-shib.png"
+                    alt="Profile"
+                    className="w-16 h-16 object-cover border-2 border-red-800 shadow-lg rounded-full"
+                  />
+                  <p className="font-semibold text-gray-800">Ferenu</p>
+                </div>
+                <hr className="my-2" />
+                <a
+                  href="/payment"
+                  className="px-4 py-2 text-gray-700 hover:bg-gray-100 text-sm text-center"
+                >
+                  Payment
+                </a>
+                <a
+                  href="/"
+                  className="px-4 py-2 text-gray-700 hover:bg-gray-100 text-sm text-center"
+                >
+                  Logout
+                </a>
+              </div>
+            )}
+          </div>
+        </div>
       </header>
 
         {/* Dashboard Container */}
         <div className="flex flex-row items-center gap-4 mx-auto mt-12 text-left">
             {/*Placeholder for the navgation bar */}
             <h2 className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Lessons</h2>
-            <h2 className="text-black text-[20px] lg:text-[22px] pl-10">Dictionary</h2>
-            {/*temporary logout link */}
-            <a href="/" className="text-xl text-black hover:text-[#9a0024] pl-8">Logout</a>
-            
+            <h2 className="text-black text-[20px] lg:text-[22px] pl-10">Dictionary</h2>           
         </div>
 
         {/* Lessons Container*/}

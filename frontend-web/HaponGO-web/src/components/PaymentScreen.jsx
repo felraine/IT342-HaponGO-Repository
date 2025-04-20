@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default function PaymentScreen() {
   const [amount, setAmount] = useState('100');
@@ -113,6 +114,7 @@ export default function PaymentScreen() {
       </header>
 
       <main className="flex flex-col items-center justify-center flex-grow p-6">
+
         <h2 className="text-3xl font-bold mb-3 text-center font-sans">
           Go beyond the basics with <span className="text-[#E63946]">Premium</span> Access!
         </h2>
@@ -154,7 +156,11 @@ export default function PaymentScreen() {
             {/* Teal Top Section */}
             <div className="bg-teal-500 p-8 flex flex-col items-center justify-center">
               <div className="w-24 h-24 mb-2 flex items-center justify-center">
-                <span className="text-4xl">🐶</span>
+              <img
+                src="icon-shib.png"
+                alt="profile"
+                className="w-full h-full object-cover"
+              />
               </div>
               <h3 className="text-lg font-bold text-white">Included with HaponGO Plus:</h3>
             </div>

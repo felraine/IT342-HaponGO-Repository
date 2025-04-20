@@ -8,6 +8,7 @@ import Dashboard from './components/Dashboard.jsx';
 import LessonView from './components/LessonView.jsx';
 import AdminDashboard from './components/AdminDashboard.jsx';
 import AdminLessonPage from './components/AdminLessonPage.jsx';
+import PaymentScreen from './components/PaymentScreen.jsx';
 
 
 createRoot(document.getElementById('root')).render(
@@ -20,6 +21,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/lesson/:lessonId" element={<LessonView />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/admin-lesson/:id" element={<AdminLessonPage />} />
+        <Route path="/payment" element={<PaymentScreen />} />
       </Routes>
     </Router>
   </StrictMode>

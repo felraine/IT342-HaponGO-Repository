@@ -14,12 +14,13 @@ public class securityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                .cors() // ✅ Enable CORS here
+                .and()
                 .authorizeHttpRequests(authorizeRequests -> 
-                    authorizeRequests
-                        .anyRequest().permitAll()) // Allow all requests without authentication
-                .formLogin().disable()  // Disable the default login page
-                .oauth2Login().disable() // Disable OAuth2 login redirection
-                .csrf(AbstractHttpConfigurer::disable) // Disable CSRF protection if not needed
+                    authorizeRequests.anyRequest().permitAll())
+                .formLogin().disable()
+                .oauth2Login().disable()
+                .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
 }

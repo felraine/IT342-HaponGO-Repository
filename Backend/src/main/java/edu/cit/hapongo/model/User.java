@@ -1,11 +1,14 @@
 package edu.cit.hapongo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -13,46 +16,46 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userId;
+    private Long userId;
 
-    @Column(name = "name", unique = true, nullable = false)
+    @Column(name = "name", nullable = false)                 // Name of the user
     @NotBlank(message = "Name is mandatory")
     private String name;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false)                 // Email of the user
     @Email(message = "Email should be valid")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false)                                // Password of the user 
     @NotBlank(message = "Password is mandatory")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @Column(name = "isAdmin", nullable = false)
+    @Column(name = "isAdmin", nullable = false)               // Admin status of the user
     private boolean isAdmin;
 
-    @Column(name = "subscriptionStatus", nullable = false)
+    @Column(name = "subscriptionStatus", nullable = false)    // Subscription status of the user
     private boolean subscriptionStatus;
 
-    @Lob
+    @Lob                                                      // Profile picture of the user
     @Column(columnDefinition = "MEDIUMBLOB")
     @JsonIgnore
     private byte[] profilePicture;
 
-    @Column(name = "accountCreationDate")
+    @Column(name = "accountCreationDate")                     // Account creation date of the user
     private LocalDateTime accountCreationDate;
-    
-    
-    public User() {
-    	this.isAdmin = false;
-		this.subscriptionStatus = false;
-	}
 
-	// Getters and Setters
-    public int getUserId() {
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)            // Leaderboard
+    @JsonIgnore  
+    private List<Leaderboards> leaderboards;
+
+    // Getters and Setters
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -112,13 +115,19 @@ public class User {
         this.accountCreationDate = accountCreationDate;
     }
 
-    // Override toString (excluding sensitive fields like password and profilePicture)
+    public List<Leaderboards> getLeaderboards() {
+        return leaderboards;
+    }
+
+    public void setLeaderboards(List<Leaderboards> leaderboards) {
+        this.leaderboards = leaderboards;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "userId=" + userId +
                 ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
                 ", isAdmin=" + isAdmin +
                 ", subscriptionStatus=" + subscriptionStatus +
                 ", accountCreationDate=" + accountCreationDate +

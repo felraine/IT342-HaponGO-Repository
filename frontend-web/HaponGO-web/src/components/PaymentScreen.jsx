@@ -12,7 +12,7 @@ export default function PaymentScreen() {
   const [modalMessage, setModalMessage] = useState('');
   const pollingInterval = useRef(null);
 
-  const secretKey = 'sk_test_b2WwFtNAYHGxjJnhDE3jGzEJ';
+  const secretKey = process.env.REACT_APP_PAYMONGO_SECRET_KEY;
   const basicAuth = btoa(`${secretKey}:`);
 
   const handlePayment = async () => {

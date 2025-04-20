@@ -12,7 +12,7 @@ export default function PaymentScreen() {
   const [modalMessage, setModalMessage] = useState('');
   const pollingInterval = useRef(null);
 
-  const key = process.env.REACT_APP_PAYMONGO_KEY;
+  const key = import.meta.env.VITE_PAYMONGO_KEY;
   const basicAuth = btoa(`${key}:`);
 
   const handlePayment = async () => {

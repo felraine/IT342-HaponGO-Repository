@@ -1,5 +1,5 @@
 [versions]
-agp = "8.9.1"
+agp = "8.3.0"
 kotlin = "2.0.21"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -21,7 +21,6 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 
 circleimageview = { group = "de.hdodenhof", name = "circleimageview", version = "3.1.0" }
-androidx-drawerlayout = { group = "androidx.drawerlayout", name = "drawerlayout", version = "1.2.0" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

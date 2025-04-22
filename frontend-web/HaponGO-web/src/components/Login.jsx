@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_BASE_URL from "../config";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -11,7 +12,8 @@ export default function Login() {
   // Send a POST request to the server with the email and password
   const handleLogin = async (e) => {
     e.preventDefault();
-  
+    //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
+    //development http://localhost:8080/api/lesson-contents/lesson/${lessonId}
     try {
       const response = await fetch(
         `http://localhost:8080/api/users/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`,
@@ -29,10 +31,11 @@ export default function Login() {
       const data = await response.json();
       console.log("Login successful!", data);
   
-      // Example: Store user data or token if needed
-      // localStorage.setItem("user", JSON.stringify(data));
+      // ✅ Save the user ID (and the full user object if you like)
+      localStorage.setItem("userId", data.userId);
+      localStorage.setItem("user", JSON.stringify(data));
   
-      // Check if user is admin and navigate accordingly
+      // Redirect based on role
       if (data.admin === true || data.admin === 1) {
         navigate("/admin-dashboard");
       } else {
@@ -43,7 +46,7 @@ export default function Login() {
       console.error("Login error:", err);
       setError("An unexpected error occurred.");
     }
-  };  
+  };      
 
   return (
     <>

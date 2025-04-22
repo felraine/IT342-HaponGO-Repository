@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const LessonView = () => {
+const QuizView = () => {
   const { lessonId } = useParams();
   const [lessonContents, setLessonContents] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -10,10 +10,10 @@ const LessonView = () => {
 
   useEffect(() => {
     const fetchLessonContents = async () => {
-      //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
-      //development http://localhost:8080/api/lesson-contents/lesson/${lessonId}
+        //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
+        //development http://localhost:8080/api/lesson-contents/lesson/${lessonId}
       try {
-        const response = await fetch(`http://localhost:8080/api/lesson-contents/lesson/${lessonId}`);
+        const response = await fetch(`http://localhost:8080/api/lesson-contents/lesson/${lessonId}`); 
         if (!response.ok) throw new Error('Failed to fetch lesson content');
         const data = await response.json();
         setLessonContents(data);
@@ -130,4 +130,4 @@ const LessonView = () => {
   );
 };
 
-export default LessonView;
+export default QuizView;

@@ -15,6 +15,8 @@ export default function Dashboard() {
 
   const fetchLessons = async () => {
     try {
+      //production https://hapongo-backend-819908927275.asia-southeast1.run.app
+      //development http://localhost:8080
       const response = await fetch('http://localhost:8080/api/lessons');
       const data = await response.json();
       setLessons(data);
@@ -26,6 +28,8 @@ export default function Dashboard() {
 
   const fetchUsers = async () => {
     try {
+      //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
+      //development http://localhost:8080/api/lesson-contents/lesson/${lessonId}
       const response = await fetch('http://localhost:8080/api/users/admin/get_all_users');
       if (!response.ok) {
         throw new Error(`Server error: ${response.status}`);
@@ -56,6 +60,8 @@ export default function Dashboard() {
     const newLesson = { lessonName, maxScore: parseInt(maxScore, 10) };
 
     try {
+      //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
+      //development http://localhost:8080/api/lesson-contents/lesson/${lessonId}
       const response = await fetch('http://localhost:8080/api/lessons/save', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -97,6 +103,8 @@ export default function Dashboard() {
     const updatedLesson = { lessonName, maxScore: parseInt(maxScore, 10) };
 
     try {
+      //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
+      //development http://localhost:8080/api/lesson-contents/lesson/${lessonId}
       const response = await fetch(`http://localhost:8080/api/lessons/${currentLessonId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -123,6 +131,8 @@ export default function Dashboard() {
 
   const handleDeleteLesson = async (id) => {
     try {
+      //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
+      //development http://localhost:8080/api/lesson-contents/lesson/${lessonId}
       const response = await fetch(`http://localhost:8080/api/lessons/${id}`, {
         method: 'DELETE',
       });

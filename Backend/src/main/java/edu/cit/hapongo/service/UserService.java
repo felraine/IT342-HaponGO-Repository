@@ -53,11 +53,11 @@
             return userRepository.findAll();
         }
         //get user by id
-        public Optional<User> getUserById(int id) {
+        public Optional<User> getUserById(long id) {
             return userRepository.findById(id);
         }
         //update user
-        public User updateUser(int userId, User userDetails) {
+        public User updateUser(long userId, User userDetails) {
             Optional<User> existingUserOptional = userRepository.findById(userId);
             if (existingUserOptional.isPresent()) {
                 User existingUser = existingUserOptional.get();
@@ -87,10 +87,21 @@
             }
         }
         //delete user
-        public void deleteUser(int userId) {
+        public void deleteUser(long userId) {
             Optional<User> existingUserOptional = userRepository.findById(userId);
             if (existingUserOptional.isPresent()) {
                 userRepository.delete(existingUserOptional.get());
+            } else {
+                throw new RuntimeException("User not found with ID: " + userId);
+            }
+        }
+        //confirm payment and activate subscription
+        public User confirmPaymentAndActivateSubscription(long userId) {
+            Optional<User> existingUserOptional = userRepository.findById(userId);
+            if (existingUserOptional.isPresent()) {
+                User user = existingUserOptional.get();
+                user.setSubscriptionStatus(true);
+                return userRepository.save(user);
             } else {
                 throw new RuntimeException("User not found with ID: " + userId);
             }

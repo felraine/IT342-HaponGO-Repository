@@ -25,7 +25,7 @@ public class UserLessonService {
     private UserRepository userRepository;  // To fetch User
 
     // Assign the first lesson to a user (this can be used when a user registers or first starts)
-    public UserLesson assignFirstLessonToUser(int userId) {
+    public UserLesson assignFirstLessonToUser(long userId) {
         Optional<User> userOpt = userRepository.findById(userId);  // Fetch the user by ID
         if (userOpt.isPresent()) {
             List<Lesson> lessons = lessonRepository.findAll();
@@ -40,12 +40,12 @@ public class UserLessonService {
     }
 
     // Get all lessons assigned to a user
-    public List<UserLesson> getUserLessons(int userId) {
+    public List<UserLesson> getUserLessons(long userId) {
         return userLessonRepository.findByUser_UserId(userId);
     }
 
     // Get the active lesson for a user
-    public Optional<UserLesson> getActiveLessonForUser(int userId) {
+    public Optional<UserLesson> getActiveLessonForUser(long userId) {
         List<UserLesson> userLessons = userLessonRepository.findByUser_UserId(userId);
         for (UserLesson userLesson : userLessons) {
             if (userLesson.isActive()) {
@@ -56,7 +56,7 @@ public class UserLessonService {
     }
 
     // Move the user to the next lesson after completing the current one
-    public UserLesson moveToNextLesson(int userId) {
+    public UserLesson moveToNextLesson(long userId) {
         // Get the current active lesson
         Optional<UserLesson> activeUserLessonOpt = getActiveLessonForUser(userId);
         if (activeUserLessonOpt.isPresent()) {
@@ -81,7 +81,7 @@ public class UserLessonService {
     }
 
     // Mark a lesson as completed for a user
-    public UserLesson markLessonAsCompleted(int userId, int lessonId) {
+    public UserLesson markLessonAsCompleted(long userId, long lessonId) {
         Optional<UserLesson> userLessonOpt = userLessonRepository.findByUser_UserIdAndLesson_LessonId(userId, lessonId);
         if (userLessonOpt.isPresent()) {
             UserLesson userLesson = userLessonOpt.get();

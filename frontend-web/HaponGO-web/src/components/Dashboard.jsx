@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,10 +7,16 @@ export default function Dashboard(){
   const [error, setError] = useState(null);  
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-
   // Function to handle dropdown toggle
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
+  };
+
+  // Logout function to clear user data from localStorage
+  const logout = () => {
+    localStorage.removeItem('userId');
+    localStorage.removeItem('user');
+    navigate('/'); // Redirect to the homepage or login page after logout
   };
 
   // Get list of existing lessons 
@@ -20,6 +25,8 @@ export default function Dashboard(){
     // Fetch lessons 
     const fetchLessons = async () => {
       try {
+        //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
+        //development http://localhost:8080/api/lesson-contents/lesson/${lessonId}
         const response = await fetch('http://localhost:8080/api/lessons');
         const data = await response.json();
         setLessons(data);
@@ -32,8 +39,8 @@ export default function Dashboard(){
     fetchLessons();
   }, []);
 
-    return (
-        <>
+  return (
+    <>
       {/* Header */}
       <title>HaponGO</title>
       <header className="w-full font-sans relative bg-[#BC002D]">
@@ -74,28 +81,27 @@ export default function Dashboard(){
                 >
                   Payment
                 </a>
-                <a
-                  href="/"
+                <button
+                  onClick={logout}
                   className="px-4 py-2 text-gray-700 hover:bg-gray-100 text-sm text-center"
                 >
                   Logout
-                </a>
+                </button>
               </div>
             )}
           </div>
         </div>
       </header>
 
-        {/* Dashboard Container */}
-        <div className="flex flex-row items-center gap-4 mx-auto mt-12 text-left">
-            {/*Placeholder for the navgation bar */}
-            <h2 className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Lessons</h2>
-            <h2 className="text-black text-[20px] lg:text-[22px] pl-10">Dictionary</h2>           
-        </div>
+      {/* Dashboard Container */}
+      <div className="flex flex-row items-center gap-4 mx-auto mt-12 text-left">
+          {/* Placeholder for the navigation bar */}
+          <h2 className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Lessons</h2>
+          <h2 className="text-black text-[20px] lg:text-[22px] pl-10">Dictionary</h2>           
+      </div>
 
-        {/* Lessons Container*/}
-        <div className="bg-[#FFE79B] p-8 shadow-xl w-full min-h-screen text-left mt-4">
-
+      {/* Lessons Container */}
+      <div className="bg-[#FFE79B] p-8 shadow-xl w-full min-h-screen text-left mt-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pl-12 pr-12">
           {lessons.length > 0 ? (
             lessons.map((lesson) => (
@@ -116,8 +122,7 @@ export default function Dashboard(){
             <p className="col-span-full text-center text-gray-500">No lessons available.</p>
           )}
         </div>
-
       </div>
     </>
-    );
+  );
 }

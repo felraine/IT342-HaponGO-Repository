@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import edu.cit.hapongo.model.Dictionary;
 import edu.cit.hapongo.repository.DictionaryRepository;
-import org.springframework.data.domain.Pageable;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -17,16 +17,17 @@ public class DictionaryService {
     @Autowired
     private DictionaryRepository repository;
 
+    // WARNING: Do not use for now (very laggy lol)
     public List<Dictionary> findAll() {
         return repository.findAll();
     }
 
-    public List<Dictionary> findTop100() {
-        Pageable limit = PageRequest.of(0, 100);
-        return repository.findAll(limit).getContent();
+    // Temporary Service for Testing
+    public List<Dictionary> findTop10() {
+        return repository.findTop10();
     }
 
-    public Optional<Dictionary> findById(int id) {
+    public Optional<Dictionary> findById(long id) {
         return repository.findById(id);
     }
 
@@ -34,7 +35,7 @@ public class DictionaryService {
         return repository.save(japaneseWord);
     }
 
-    public Dictionary update(int id, Dictionary updatedWord) {
+    public Dictionary update(long id, Dictionary updatedWord) {
         return repository.findById(id).map(existing -> {
             existing.setEnglishWord(updatedWord.getEnglishWord());
             existing.setJapaneseKanji(updatedWord.getJapaneseKanji());
@@ -43,7 +44,7 @@ public class DictionaryService {
         }).orElseThrow(() -> new RuntimeException("Word not found with id " + id));
     }
 
-    public void delete(int id) {
+    public void delete(long id) {
         repository.deleteById(id);
     }
 }

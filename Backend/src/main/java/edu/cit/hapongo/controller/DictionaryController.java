@@ -16,9 +16,10 @@ public class DictionaryController {
     @Autowired
     private DictionaryService service;
 
-    @GetMapping("/getAll")
+    // Temporary Endpoint for testing
+    @GetMapping("/getTenWords")
     public List<Dictionary> getAllWords() {
-        return service.findTop100();
+        return service.findTop10();
     }
 
     @GetMapping("/{id}")

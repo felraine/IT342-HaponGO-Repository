@@ -8,7 +8,7 @@ public class Dictionary {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(name = "english_word", nullable = false)
     private String englishWord;
@@ -30,7 +30,7 @@ public class Dictionary {
 
     // Getters and Setters
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

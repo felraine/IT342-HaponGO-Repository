@@ -8,12 +8,19 @@ export default function LessonPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [editingId, setEditingId] = useState(null); // ID of the card being edited
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility state
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [newTerm, setNewTerm] = useState({
     englishWord: "",
     japaneseWord: "",
     pronunciation: "",
   });
   const navigate = useNavigate();
+
+
+  // Function to handle dropdown toggle
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
 
   const fetchLessonData = async () => {
     try {
@@ -141,15 +148,56 @@ export default function LessonPage() {
   return (
     <>
       <title>HaponGO</title>
-      <header className="w-full font-sans">
-        <h1 className="m-0 text-[40px] text-white bg-[#BC002D] font-bold py-3 pl-20 text-left">
+      <header className="w-full font-sans relative bg-[#BC002D]">
+        <h1 className="m-0 text-[40px] text-white font-bold py-3 pl-20 text-left">
           HaponGO
         </h1>
+
+        {/* Profile Dropdown */}
+        <div className="absolute top-5 right-10">
+          <div className="relative">
+            <button
+              onClick={toggleDropdown}
+              className="w-12 h-12 rounded-full overflow-hidden border-2 border-white focus:outline-none cursor-pointer"
+            >
+              <img
+                src="icon-shib.png"
+                alt="profile"
+                className="w-full h-full object-cover"
+              />
+            </button>
+
+            {dropdownOpen && (
+              <div className="flex flex-col absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-3 z-10">
+                <div className="flex flex-col items-center px-4 py-2">
+                  <img
+                    src="icon-shib.png"
+                    alt="Profile"
+                    className="w-16 h-16 object-cover border-2 border-red-800 shadow-lg rounded-full"
+                  />
+                  <p className="font-semibold text-gray-800">Ferenu</p>
+                </div>
+                <hr className="my-2" />
+                <a
+                  href="/payment"
+                  className="px-4 py-2 text-gray-700 hover:bg-gray-100 text-sm text-center"
+                >
+                  Payment
+                </a>
+                <a
+                  href="/"
+                  className="px-4 py-2 text-gray-700 hover:bg-gray-100 text-sm text-center"
+                >
+                  Logout
+                </a>
+              </div>
+            )}
+          </div>
+        </div>
       </header>
 
       <div className="flex flex-row items-center gap-4 mx-auto mt-4 text-left shadow-md bg-white">
-        <a href="/admin-dashboard" className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Lessons</a>
-        <a href="/" className="text-xl text-black hover:text-[#9a0024] pl-8">Logout</a>
+        <a href="/admin-dashboard" className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Dashboard</a>
       </div>
 
       <div className="bg-[#FFFBED] p-8 shadow-xl w-full min-h-screen text-left mt-2">

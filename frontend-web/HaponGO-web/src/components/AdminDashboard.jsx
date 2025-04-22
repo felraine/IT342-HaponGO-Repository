@@ -152,7 +152,6 @@ export default function Dashboard() {
   return (
     <>
       <title>HaponGO</title>
-      <title>HaponGO</title>
       <header className="w-full font-sans relative bg-[#BC002D]">
         <h1 className="m-0 text-[40px] text-white font-bold py-3 pl-20 text-left">
           HaponGO

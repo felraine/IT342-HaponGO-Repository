@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function LessonPage() {
   const { id } = useParams();
@@ -14,6 +14,7 @@ export default function LessonPage() {
     japaneseWord: "",
     pronunciation: "",
   });
+  const navigate = useNavigate();
 
 
   // Function to handle dropdown toggle
@@ -24,10 +25,14 @@ export default function LessonPage() {
   const fetchLessonData = async () => {
     try {
       // Fetching the lesson data by its ID
+      //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
+      //development http://localhost:8080/api/lesson-contents/lesson/${lessonId}
       const lessonResponse = await fetch(`http://localhost:8080/api/lessons/${id}`);
       const lessonData = await lessonResponse.json();
   
       // Fetching the lesson content data
+      //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
+      //development http://localhost:8080/api/lesson-contents/lesson/${lessonId}
       const contentResponse = await fetch(`http://localhost:8080/api/lesson-contents/lesson/${id}`);
       const contentData = await contentResponse.json();
   
@@ -59,6 +64,8 @@ export default function LessonPage() {
     if (!term) return;
 
     try {
+      //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
+      //development http://localhost:8080/api/lesson-contents/lesson/${lessonId}
       const response = await fetch(`http://localhost:8080/api/lesson-contents/${termId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -330,9 +337,9 @@ export default function LessonPage() {
         <div className="flex justify-center mt-8">
           <button
             className="bg-[#BC002D] text-white text-lg sm:text-xl px-6 py-3 rounded-md hover:bg-red-800 shadow-md transition-all duration-300"
-            onClick={() => alert("Quiz coming soon!")}
+            onClick={() => navigate(`/admin-quiz/${id}`)}
           >
-            Take Quiz
+            Go to Quiz
           </button>
         </div>
       </div>

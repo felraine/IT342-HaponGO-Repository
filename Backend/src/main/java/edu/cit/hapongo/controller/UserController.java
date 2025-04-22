@@ -84,4 +84,13 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+    @PutMapping("/confirm_payment/{id}")
+    public ResponseEntity<?> confirmPayment(@PathVariable long id) {
+        try {
+            User updatedUser = userService.confirmPaymentAndActivateSubscription(id);
+            return ResponseEntity.ok(updatedUser);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 }

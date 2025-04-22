@@ -8,7 +8,7 @@ public class LessonQuiz {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int questionId;
+    private long questionId;
 
     @ManyToOne
     @JoinColumn(name = "lesson_id", nullable = false)
@@ -47,11 +47,11 @@ public class LessonQuiz {
     }
 
     // Getters and Setters
-    public int getQuestionId() {
+    public long getQuestionId() {
         return questionId;
     }
 
-    public void setQuestionId(int questionId) {
+    public void setQuestionId(long questionId) {
         this.questionId = questionId;
     }
 

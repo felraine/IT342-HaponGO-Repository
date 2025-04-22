@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/lesson-quizzes")
@@ -25,39 +24,47 @@ public class LessonQuizController {
 
     // Get quizzes by lesson ID
     @GetMapping("/lesson/{lessonId}")
-    public List<LessonQuiz> getQuizzesByLessonId(@PathVariable int lessonId) {
+    public List<LessonQuiz> getQuizzesByLessonId(@PathVariable long lessonId) {
         return lessonQuizService.getQuizzesByLessonId(lessonId);
     }
 
     // Get a quiz by ID
     @GetMapping("/{questionId}")
-    public ResponseEntity<LessonQuiz> getQuizById(@PathVariable int questionId) {
-        Optional<LessonQuiz> quiz = lessonQuizService.getQuizById(questionId);
-        return quiz.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    public ResponseEntity<LessonQuiz> getQuizById(@PathVariable long questionId) {
+        try {
+            LessonQuiz quiz = lessonQuizService.getQuizById(questionId);
+            return ResponseEntity.ok(quiz);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     // Create a new quiz
     @PostMapping
     public ResponseEntity<LessonQuiz> createQuiz(@RequestBody LessonQuiz lessonQuiz) {
-        LessonQuiz createdQuiz = lessonQuizService.createQuiz(lessonQuiz);
+        LessonQuiz createdQuiz = lessonQuizService.addQuiz(lessonQuiz);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdQuiz);
     }
 
     // Update an existing quiz
     @PutMapping("/{questionId}")
-    public ResponseEntity<LessonQuiz> updateQuiz(@PathVariable int questionId, @RequestBody LessonQuiz lessonQuizDetails) {
-        LessonQuiz updatedQuiz = lessonQuizService.updateQuiz(questionId, lessonQuizDetails);
-        if (updatedQuiz != null) {
+    public ResponseEntity<LessonQuiz> updateQuiz(@PathVariable long questionId, @RequestBody LessonQuiz lessonQuizDetails) {
+        try {
+            LessonQuiz updatedQuiz = lessonQuizService.updateQuiz(questionId, lessonQuizDetails);
             return ResponseEntity.ok(updatedQuiz);
-        } else {
+        } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
     // Delete a quiz by ID
     @DeleteMapping("/{questionId}")
-    public ResponseEntity<Void> deleteQuiz(@PathVariable int questionId) {
-        lessonQuizService.deleteQuiz(questionId);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    public ResponseEntity<Void> deleteQuiz(@PathVariable long questionId) {
+        try {
+            lessonQuizService.deleteQuiz(questionId);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }

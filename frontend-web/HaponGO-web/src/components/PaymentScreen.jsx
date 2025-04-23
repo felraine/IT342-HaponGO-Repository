@@ -188,7 +188,7 @@ export default function PaymentScreen() {
                 <li>✔ Unlimited quizzes & real-life conversations</li>
                 <li>✔ Full access to all lessons</li>
                 <li>✔ No ads for a seamless experience</li>
-                <li>✔ Supports offline mode</li>
+                <li>✔ Supports offline mode (for mobile)</li>
               </ul>
 
               <div>

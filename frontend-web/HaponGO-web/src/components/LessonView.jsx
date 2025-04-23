@@ -13,6 +13,11 @@ const LessonView = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
+  //pop sound effect
+  const playClickSound = () => {
+    new Audio('/click-sound.mp3').play(); 
+  };
+
   useEffect(() => {
     const fetchLessonContents = async () => {
       //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
@@ -151,7 +156,7 @@ const LessonView = () => {
               {/* Navigation Buttons */}
               <div className="flex justify-between items-center mt-8">
                 <button
-                  onClick={goToPrev}
+                  onClick={() => { goToPrev(); playClickSound(); }} 
                   className="px-5 py-3 bg-[#BC002D] text-white rounded-xl font-semibold hover:bg-red-800 transition"
                 >
                   Back
@@ -162,7 +167,7 @@ const LessonView = () => {
                 </p>
 
                 <button
-                  onClick={goToNext}
+                  onClick={() => { goToNext(); playClickSound(); }} 
                   className="px-5 py-3 bg-[#BC002D] text-white rounded-xl font-semibold hover:bg-red-800 transition"
                 >
                   Next

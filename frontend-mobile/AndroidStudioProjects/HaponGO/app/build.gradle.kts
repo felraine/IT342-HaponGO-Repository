@@ -47,4 +47,13 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.circleimageview)
 
+    // for Spring Boot
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.squareup)
+    implementation(libs.coroutines)
+    implementation(libs.coroutinesandroid)
+
+    implementation(libs.lifecycle)
+
 }

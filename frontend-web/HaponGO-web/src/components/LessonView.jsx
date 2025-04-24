@@ -34,6 +34,7 @@ const LessonView = () => {
         const response = await fetch(`http://localhost:8080/api/lesson-contents/lesson/${lessonId}`);
         if (!response.ok) throw new Error('Failed to fetch lesson content');
         const data = await response.json();
+      
         setLessonContents(data);
       } catch (error) {
         console.error('Error:', error);
@@ -181,13 +182,14 @@ const LessonView = () => {
                   Next
                 </button>
               </div>
-
+              <div className="flex justify-center mt-8">
               <button
-            className="bg-[#BC002D] text-white text-lg sm:text-xl px-6 py-3 rounded-md hover:bg-red-800 shadow-md transition-all duration-300"
-            onClick={() => navigate(`/quiz/${lessonId}`)}
-          >
-            Go to Quiz
-          </button>
+                className="bg-[#BC002D] text-white text-lg sm:text-xl px-6 py-3 rounded-md hover:bg-red-800 shadow-md transition-all duration-300"
+                onClick={() => navigate(`/quiz/${lessonId}`)}
+              >
+                Start Quiz
+              </button>
+            </div>
             </>
           )}
         </div>

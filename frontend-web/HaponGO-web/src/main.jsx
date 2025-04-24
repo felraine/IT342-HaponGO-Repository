@@ -10,6 +10,7 @@ import AdminDashboard from './components/AdminDashboard.jsx';
 import AdminLessonPage from './components/AdminLessonPage.jsx';
 import PaymentScreen from './components/PaymentScreen.jsx';
 import AdminQuizPage from './components/AdminQuizPage.jsx';
+import QuizView from './components/QuizView.jsx';
 
 
 createRoot(document.getElementById('root')).render(
@@ -24,6 +25,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/admin-lesson/:id" element={<AdminLessonPage />} />
         <Route path="/payment" element={<PaymentScreen />} />
         <Route path="/admin-quiz/:id" element={<AdminQuizPage />} />
+        <Route path="/quiz/:lessonId" element={<QuizView />} />
       </Routes>
     </Router>
   </StrictMode>

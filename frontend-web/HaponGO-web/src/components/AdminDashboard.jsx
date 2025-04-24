@@ -18,6 +18,12 @@ export default function Dashboard() {
     setDropdownOpen(!dropdownOpen);
   };
 
+  const logout = () => {
+    localStorage.removeItem('userId');
+    localStorage.removeItem('user');
+    navigate('/'); 
+  };
+
   const fetchLessons = async () => {
     try {
       //production https://hapongo-backend-819908927275.asia-southeast1.run.app
@@ -175,7 +181,7 @@ export default function Dashboard() {
               className="w-12 h-12 rounded-full overflow-hidden border-2 border-white focus:outline-none cursor-pointer"
             >
               <img
-                src="icon-shib.png"
+                src="/icon-shib.png"
                 alt="profile"
                 className="w-full h-full object-cover"
               />
@@ -192,12 +198,12 @@ export default function Dashboard() {
                   <p className="font-semibold text-gray-800">Admin</p>
                 </div>
                 <hr className="my-2" />              
-                <a
-                  href="/"
+                <button
+                   onClick={logout}
                   className="px-4 py-2 text-gray-700 hover:bg-gray-100 text-sm text-center"
                 >
                   Logout
-                </a>
+                </button>
               </div>
             )}
           </div>

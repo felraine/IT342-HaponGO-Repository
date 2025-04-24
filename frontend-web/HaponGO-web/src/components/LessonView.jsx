@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate} from 'react-router-dom';
 
 const LessonView = () => {
   const { lessonId } = useParams();
@@ -8,9 +8,17 @@ const LessonView = () => {
   const [loading, setLoading] = useState(true);
   const [lessonName, setLessonName] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate(); 
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
+  };
+
+  // Logout function to clear user data from localStorage
+  const logout = () => {
+    localStorage.removeItem('userId');
+    localStorage.removeItem('user');
+    navigate('/'); 
   };
 
   //pop sound effect
@@ -173,6 +181,13 @@ const LessonView = () => {
                   Next
                 </button>
               </div>
+
+              <button
+            className="bg-[#BC002D] text-white text-lg sm:text-xl px-6 py-3 rounded-md hover:bg-red-800 shadow-md transition-all duration-300"
+            onClick={() => navigate(`/quiz/${lessonId}`)}
+          >
+            Go to Quiz
+          </button>
             </>
           )}
         </div>

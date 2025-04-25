@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/lesson-quizzes")
@@ -23,9 +25,34 @@ public class LessonQuizController {
     }
 
     // Get quizzes by lesson ID
-    @GetMapping("/lesson/{lessonId}")
+   /*  @GetMapping("/lesson/{lessonId}")
     public List<LessonQuiz> getQuizzesByLessonId(@PathVariable long lessonId) {
         return lessonQuizService.getQuizzesByLessonId(lessonId);
+    }*/
+
+    // Get quizzes by lesson ID
+    @GetMapping("/lesson/{lessonId}")
+    public ResponseEntity<List<Map<String, Object>>> getQuizzesByLessonId(@PathVariable long lessonId) {
+        try {
+            List<LessonQuiz> quizzes = lessonQuizService.getQuizzesByLessonId(lessonId);
+
+            // Format quizzes
+            List<Map<String, Object>> formattedQuizzes = quizzes.stream().map(quiz -> {
+                Map<String, Object> quizMap = new HashMap<>();
+                quizMap.put("questionId", quiz.getQuestionId());
+                quizMap.put("question", quiz.getQuestion());
+                quizMap.put("choice1", quiz.getChoice1());
+                quizMap.put("choice2", quiz.getChoice2());
+                quizMap.put("choice3", quiz.getChoice3());
+                quizMap.put("choice4", quiz.getChoice4());
+                quizMap.put("answer", quiz.getAnswer());
+                return quizMap;
+            }).collect(Collectors.toList());
+
+            return ResponseEntity.ok(formattedQuizzes);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     // Get a quiz by ID

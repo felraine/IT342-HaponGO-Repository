@@ -19,11 +19,6 @@ export default function Dashboard(){
     navigate('/'); 
   };
 
-  //pop sound effect
-  const playClickSound = () => {
-    new Audio('/pop-sound.mp3').play(); 
-  };
-
   // Get list of existing lessons 
   useEffect(() => {
     
@@ -62,7 +57,7 @@ export default function Dashboard(){
               className="w-12 h-12 rounded-full overflow-hidden border-2 border-white focus:outline-none cursor-pointer"
             >
               <img
-                src="icon-shib.png"
+                src="/icon-shib.png"
                 alt="profile"
                 className="w-full h-full object-cover"
               />
@@ -73,7 +68,7 @@ export default function Dashboard(){
               <div className="flex flex-col absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-3 z-10">
                 <div className="flex flex-col items-center px-4 py-2">
                   <img
-                    src="icon-shib.png"
+                    src="/icon-shib.png"
                     alt="Profile"
                     className="w-16 h-16 object-cover border-2 border-red-800 shadow-lg rounded-full"
                   />

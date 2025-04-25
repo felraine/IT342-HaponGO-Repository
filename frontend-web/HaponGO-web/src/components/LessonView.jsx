@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate} from 'react-router-dom';
 
 const LessonView = () => {
   const { lessonId } = useParams();
@@ -8,9 +8,17 @@ const LessonView = () => {
   const [loading, setLoading] = useState(true);
   const [lessonName, setLessonName] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate(); 
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
+  };
+
+  // Logout function to clear user data from localStorage
+  const logout = () => {
+    localStorage.removeItem('userId');
+    localStorage.removeItem('user');
+    navigate('/'); 
   };
 
   //pop sound effect
@@ -26,6 +34,7 @@ const LessonView = () => {
         const response = await fetch(`http://localhost:8080/api/lesson-contents/lesson/${lessonId}`);
         if (!response.ok) throw new Error('Failed to fetch lesson content');
         const data = await response.json();
+      
         setLessonContents(data);
       } catch (error) {
         console.error('Error:', error);
@@ -173,6 +182,14 @@ const LessonView = () => {
                   Next
                 </button>
               </div>
+              <div className="flex justify-center mt-8">
+              <button
+                className="bg-[#BC002D] text-white text-lg sm:text-xl px-6 py-3 rounded-md hover:bg-red-800 shadow-md transition-all duration-300"
+                onClick={() => navigate(`/quiz/${lessonId}`)}
+              >
+                Start Quiz
+              </button>
+            </div>
             </>
           )}
         </div>

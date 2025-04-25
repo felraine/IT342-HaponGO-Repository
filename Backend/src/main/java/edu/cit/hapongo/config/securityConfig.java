@@ -31,7 +31,7 @@ public class securityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("https://hapongo-4fa55.web.app", "http://localhost:5173"));  // <-- Your frontend URL
+        configuration.setAllowedOriginPatterns(List.of("*"));  // <-- Your frontend URL
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);

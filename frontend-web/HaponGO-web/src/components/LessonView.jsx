@@ -13,6 +13,11 @@ const LessonView = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
+  //pop sound effect
+  const playClickSound = () => {
+    new Audio('/click-sound.mp3').play(); 
+  };
+
   useEffect(() => {
     const fetchLessonContents = async () => {
       //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
@@ -81,7 +86,7 @@ const LessonView = () => {
               className="w-12 h-12 rounded-full overflow-hidden border-2 border-white focus:outline-none cursor-pointer"
             >
               <img
-                src="icon-shib.png"
+                src="/icon-shib.png"
                 alt="profile"
                 className="w-full h-full object-cover"
               />
@@ -91,7 +96,7 @@ const LessonView = () => {
               <div className="flex flex-col absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-3 z-10">
                 <div className="flex flex-col items-center px-4 py-2">
                   <img
-                    src="icon-shib.png"
+                    src="/icon-shib.png"
                     alt="Profile"
                     className="w-16 h-16 object-cover border-2 border-red-800 shadow-lg rounded-full"
                   />
@@ -120,7 +125,6 @@ const LessonView = () => {
       <div className="flex flex-row items-center gap-4 mx-auto mt-12 text-left">
         <a href="/dashboard" className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Lessons</a>
         <h2 className="text-black text-[20px] lg:text-[22px] pl-10">Dictionary</h2>
-        <a href="/" className="text-xl text-black hover:text-[#9a0024] pl-8">Logout</a>
       </div>
 
       {/* Lesson Content Container */}
@@ -142,17 +146,17 @@ const LessonView = () => {
               <div className="bg-white shadow-2xl border border-gray-300 rounded-3xl px-16 py-30 text-center text-xl transition-all duration-300 ease-in-out max-w-screen-xl mx-auto">
                 <p className="text-4xl font-bold text-gray-800 mb-8">🇯🇵 {content.japaneseWord}</p>
                 <p className="text-2xl text-gray-700 mb-6">
-                  🔊 Pronunciation: <span className="italic">{content.pronunciation}</span>
+                  Pronunciation: <span className="italic">{content.pronunciation}</span>
                 </p>
                 <p className="text-2xl text-gray-700">
-                  English: <span className="font-semibold">{content.englishWord}</span>
+                  Translation: <span className="font-semibold">{content.englishWord}</span>
                 </p>
               </div>
 
               {/* Navigation Buttons */}
               <div className="flex justify-between items-center mt-8">
                 <button
-                  onClick={goToPrev}
+                  onClick={() => { goToPrev(); playClickSound(); }} 
                   className="px-5 py-3 bg-[#BC002D] text-white rounded-xl font-semibold hover:bg-red-800 transition"
                 >
                   Back
@@ -163,7 +167,7 @@ const LessonView = () => {
                 </p>
 
                 <button
-                  onClick={goToNext}
+                  onClick={() => { goToNext(); playClickSound(); }} 
                   className="px-5 py-3 bg-[#BC002D] text-white rounded-xl font-semibold hover:bg-red-800 transition"
                 >
                   Next

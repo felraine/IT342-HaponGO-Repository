@@ -189,15 +189,9 @@ export default function Dashboard() {
                     alt="Profile"
                     className="w-16 h-16 object-cover border-2 border-red-800 shadow-lg rounded-full"
                   />
-                  <p className="font-semibold text-gray-800">Ferenu</p>
+                  <p className="font-semibold text-gray-800">Admin</p>
                 </div>
-                <hr className="my-2" />
-                <a
-                  href="/payment"
-                  className="px-4 py-2 text-gray-700 hover:bg-gray-100 text-sm text-center"
-                >
-                  Payment
-                </a>
+                <hr className="my-2" />              
                 <a
                   href="/"
                   className="px-4 py-2 text-gray-700 hover:bg-gray-100 text-sm text-center"
@@ -209,9 +203,10 @@ export default function Dashboard() {
           </div>
         </div>
       </header>
+      
       {/* Main Content */}
       <div className="flex flex-row items-center gap-4 mx-auto pt-12 text-left px-20 bg-[#FFFBED]">
-        <h2 className="text-black text-[20px] lg:text-[22px] font-bold">Dashboard</h2>
+        <a href="/admin-dashboard" className="text-black text-[20px] lg:text-[22px] font-bold">Dashboard</a>
         <h2 className="text-black text-[20px] lg:text-[22px]">Dictionary</h2>
         <button
           onClick={() => {
@@ -224,7 +219,7 @@ export default function Dashboard() {
         </button>
       </div>
 
-      <div className="flex gap-8 p-8 min-h-screen items-stretch bg-[#FFFBED]">
+      <div className="flex gap-8 p-8 pl-18 pr-18 min-h-screen items-stretch bg-[#FFFBED]">
         {/* Published Lessons Section */}
         <div className="flex-1 bg-[#FFE79B] p-6 rounded shadow-xl max-h-[450px]">
           <h2 className="text-2xl font-bold mb-4">Published Lessons</h2>

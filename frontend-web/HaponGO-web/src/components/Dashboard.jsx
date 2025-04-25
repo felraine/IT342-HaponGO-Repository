@@ -16,7 +16,12 @@ export default function Dashboard(){
   const logout = () => {
     localStorage.removeItem('userId');
     localStorage.removeItem('user');
-    navigate('/'); // Redirect to the homepage or login page after logout
+    navigate('/'); 
+  };
+
+  //pop sound effect
+  const playClickSound = () => {
+    new Audio('/pop-sound.mp3').play(); 
   };
 
   // Get list of existing lessons 

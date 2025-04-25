@@ -16,7 +16,6 @@ export default function LessonPage() {
   });
   const navigate = useNavigate();
 
-
   // Function to handle dropdown toggle
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -189,14 +188,15 @@ export default function LessonPage() {
           </div>
         </div>
       </header>
-
+      
+      {/* Dashboard Link */}
       <div className="flex flex-row items-center gap-4 mx-auto mt-4 text-left shadow-md bg-white px-4 md:px-10">
       <a href="/admin-dashboard" className="text-black text-[18px] md:text-[20px] lg:text-[22px] font-bold">
         Dashboard
       </a>
     </div>
-
-    <div className="bg-[#FFFBED] p-4 md:p-8 shadow-xl w-full min-h-screen text-left mt-2">
+            
+    <div className="bg-[#FFFBED] p-4 md:p-16 shadow-xl w-full min-h-screen text-left mt-2">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <h2 className="text-black text-left text-[18px] lg:text-[22px] font-bold">
           {lessonName}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 
 export default function LessonQuizPage() {
   const { id } = useParams();
@@ -9,6 +9,7 @@ export default function LessonQuizPage() {
   const [editingId, setEditingId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
   const [newQuiz, setNewQuiz] = useState({
     question: "",
     choice1: "",
@@ -185,13 +186,18 @@ export default function LessonQuizPage() {
       <div className="flex flex-row items-center gap-4 mx-auto mt-4 text-left shadow-md bg-white">
         <a href="/admin-dashboard" className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Dashboard</a>
       </div>
-
-      <div className="bg-[#FFFBED] p-8 shadow-xl w-full min-h-screen text-left mt-2">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-black text-left text-[18px] lg:text-[22px] font-bold pl--20">{lessonName} - Quiz</h2>
-          <button className="bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 transition duration-200" onClick={() => setIsModalOpen(true)}>
+      <div className="bg-[#FFFBED] p-16 shadow-xl w-full min-h-screen text-left mt-2">
+        {/* Title Area*/}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4"> 
+      <h2 className="text-black text-left text-[18px] lg:text-[22px] font-bold">{lessonName} - Quiz</h2>
+      <div className="flex gap-4 ml-auto">
+          <button
+            className="bg-[#E53838] font-bold text-white px-4 py-2 rounded-lg w-full sm:w-auto hover:bg-red-700 shadow-md transition-all duration-300"
+            onClick={() => navigate(`/admin-lesson/${id}`)}> Back to Edit Lessons </button>
+          <button className="bg-[#00BC8F] font-bold text-white px-4 py-2 rounded-lg w-full sm:w-auto hover:bg-[#009D77]" onClick={() => setIsModalOpen(true)}>
             + Add Quiz Question
           </button>
+        </div>
         </div>
 
         <div className="space-y-6">
@@ -244,11 +250,12 @@ export default function LessonQuizPage() {
           );
         })}
         </div>
-
+        
+        {/* Modal To add new Quiz Item */}
         {isModalOpen && (
           <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50" style={{ background: "rgba(0, 0, 0, 0.3)" }}>
-            <div className="bg-white p-6 rounded-lg w-1/3">
-              <h3 className="text-xl font-semibold mb-4">Add New Quiz Question</h3>
+            <div className="bg-[#FFE79B] p-6 rounded-lg w-1/3 ">
+              <h3 className="text-xl font-semibold mb-4 text-center">Add New Quiz Question</h3>
 
               {["question", "choice1", "choice2", "choice3", "choice4", "answer"].map((field) => (
                 <input
@@ -258,15 +265,15 @@ export default function LessonQuizPage() {
                   placeholder={field}
                   value={newQuiz[field]}
                   onChange={handleModalChange}
-                  className="w-full p-3 border mb-4 rounded-md"
+                  className="w-full p-3 mb-4 bg-white shadow-sm"
                 />
               ))}
 
-              <div className="flex justify-between">
-                <button onClick={handleAddQuiz} className="bg-green-500 text-white p-3 rounded-md hover:bg-green-600 transition duration-200">
+                <div className="flex justify-end gap-4 mt-4">
+                <button onClick={handleAddQuiz} className="bg-[#00BC8F] text-white p-3 rounded hover:bg-[#009D77] w-full">
                   Save
                 </button>
-                <button onClick={handleModalClose} className="bg-gray-500 text-white p-3 rounded-md hover:bg-gray-600 transition duration-200">
+                <button onClick={handleModalClose} className="bg-red-600 text-white p-3 rounded hover:bg-red-700 w-full">
                   Cancel
                 </button>
               </div>

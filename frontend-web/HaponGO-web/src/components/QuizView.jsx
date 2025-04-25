@@ -38,7 +38,7 @@ const QuizView = () => {
       { question: currentQuiz.question, selected: selectedChoiceText, correct: currentQuiz.answer }
     ]);
     if (correct) setScore((prev) => prev + 1);
-  
+
     // Automatically go to the next question after a short delay
     setTimeout(() => {
       nextQuestion();
@@ -60,7 +60,44 @@ const QuizView = () => {
     setAnsweredQuestions([]);
   };
 
-  // Fetch quizzes and lesson name
+  // Function to submit the score to the leaderboard
+  const submitScore = async () => {
+    try {
+      const userId = localStorage.getItem('userId'); // Assuming user is logged in
+      if (!userId) {
+        alert("User is not logged in!");
+        return;
+      }
+
+      // Logging the parameters before submitting
+      console.log('Submitting:', { userId, lessonId, points: score });
+
+      const url = new URL('http://localhost:8080/api/leaderboards/update');
+      url.searchParams.append('userId', userId);
+      url.searchParams.append('lessonId', lessonId);
+      url.searchParams.append('points', score);
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // You may not need this header for a GET/POST with query params
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Leaderboard updated:', data);
+        alert("Score submitted successfully!");
+      } else {
+        console.error('Failed to submit score');
+        alert('Failed to submit score');
+      }
+    } catch (error) {
+      console.error('Error submitting score:', error);
+      alert('Error submitting score');
+    }
+  };
+
   useEffect(() => {
     const fetchQuiz = async () => {
       const res = await fetch(`http://localhost:8080/api/lesson-quizzes/lesson/${lessonId}`);
@@ -77,6 +114,12 @@ const QuizView = () => {
     fetchQuiz();
     fetchLesson();
   }, [lessonId]);
+
+  useEffect(() => {
+    if (currentIndex === quizzes.length && quizzes.length > 0) {
+      submitScore(); // Only submit if there are quizzes and the user has reached the end
+    }
+  }, [currentIndex, quizzes.length]);
 
   return (
     <>
@@ -157,7 +200,6 @@ const QuizView = () => {
                   <p className={`text-xl font-semibold ${isCorrect ? 'text-green-700' : 'text-red-700'}`}>
                     {isCorrect ? 'Correct!' : `Wrong. Correct Answer: ${currentQuiz.answer}`}
                   </p>
- 
                 </div>
               )}
             </div>

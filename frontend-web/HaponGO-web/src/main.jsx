@@ -11,6 +11,7 @@ import AdminLessonPage from './components/AdminLessonPage.jsx';
 import PaymentScreen from './components/PaymentScreen.jsx';
 import AdminQuizPage from './components/AdminQuizPage.jsx';
 import QuizView from './components/QuizView.jsx';
+import Leaderboard from './components/LeaderboardView.jsx';
 
 
 createRoot(document.getElementById('root')).render(
@@ -26,6 +27,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/payment" element={<PaymentScreen />} />
         <Route path="/admin-quiz/:id" element={<AdminQuizPage />} />
         <Route path="/quiz/:lessonId" element={<QuizView />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
     </Router>
   </StrictMode>

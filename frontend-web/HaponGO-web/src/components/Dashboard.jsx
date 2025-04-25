@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function Dashboard(){
+export default function Dashboard() {
   const navigate = useNavigate();
-  const [lessons, setLessons] = useState([]); 
-  const [error, setError] = useState(null);  
+  const [lessons, setLessons] = useState([]);
+  const [error, setError] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   // Function to handle dropdown toggle
@@ -16,13 +16,12 @@ export default function Dashboard(){
   const logout = () => {
     localStorage.removeItem('userId');
     localStorage.removeItem('user');
-    navigate('/'); 
+    navigate('/');
   };
 
-  // Get list of existing lessons 
+  // Get list of existing lessons
   useEffect(() => {
-    
-    // Fetch lessons 
+    // Fetch lessons
     const fetchLessons = async () => {
       try {
         //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
@@ -38,6 +37,9 @@ export default function Dashboard(){
 
     fetchLessons();
   }, []);
+
+  // Sort lessons by lessonOrder before rendering
+  const sortedLessons = lessons.sort((a, b) => a.lessonOrder - b.lessonOrder);
 
   return (
     <>
@@ -95,16 +97,17 @@ export default function Dashboard(){
 
       {/* Dashboard Container */}
       <div className="flex flex-row items-center gap-4 mx-auto mt-12 text-left">
-          {/* Placeholder for the navigation bar */}
-          <h2 className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Lessons</h2>
-          <h2 className="text-black text-[20px] lg:text-[22px] pl-10">Dictionary</h2>           
+        {/* Placeholder for the navigation bar */}
+        <h2 className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Lessons</h2>
+        <h2 className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Dictionary</h2>
+        <a href="/leaderboard" className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Leaderboards</a>
       </div>
 
       {/* Lessons Container */}
       <div className="bg-[#FFE79B] p-8 shadow-xl w-full min-h-screen text-left mt-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pl-12 pr-12">
-          {lessons.length > 0 ? (
-            lessons.map((lesson) => (
+          {sortedLessons.length > 0 ? (
+            sortedLessons.map((lesson) => (
               <div
                 key={lesson.lessonId}
                 onClick={() => navigate(`/lesson/${lesson.lessonId}`)}

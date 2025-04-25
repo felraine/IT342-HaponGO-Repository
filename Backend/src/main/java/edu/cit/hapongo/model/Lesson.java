@@ -13,22 +13,16 @@ public class Lesson {
     @Column(name = "lesson_name", nullable = false)
     private String lessonName;
 
-    @Column(name = "max_score", nullable = false)
-    private int maxScore;
-
-    //@OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL, orphanRemoval = true)
-    //private List<LessonContent> lessonContents;
-
-    //@OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL, orphanRemoval = true)
-    //private List<LessonQuiz> lessonQuizzes;
+    @Column(name = "lesson_order", nullable = false)
+    private int lessonOrder;
 
     // Constructors
     public Lesson() {
     }
 
-    public Lesson(String lessonName, int maxScore) {
+    public Lesson(String lessonName, int lessonOrder) {
         this.lessonName = lessonName;
-        this.maxScore = maxScore;
+        this.lessonOrder = lessonOrder;
     }
 
     // Getters and Setters
@@ -48,36 +42,20 @@ public class Lesson {
         this.lessonName = lessonName;
     }
 
-    public int getMaxScore() {
-        return maxScore;
+    public int getLessonOrder() {
+        return lessonOrder;
     }
 
-    public void setMaxScore(int maxScore) {
-        this.maxScore = maxScore;
+    public void setLessonOrder(int lessonOrder) {
+        this.lessonOrder = lessonOrder;
     }
-
-    /*public List<LessonContent> getLessonContents() {
-        return lessonContents;
-    }
-
-    public void setLessonContents(List<LessonContent> lessonContents) {
-        this.lessonContents = lessonContents;
-    }
-
-    public List<LessonQuiz> getLessonQuizzes() {
-        return lessonQuizzes;
-    }
-
-    public void setLessonQuizzes(List<LessonQuiz> lessonQuizzes) {
-        this.lessonQuizzes = lessonQuizzes;
-    }*/
 
     @Override
     public String toString() {
         return "Lesson{" +
                 "lessonId=" + lessonId +
                 ", lessonName='" + lessonName + '\'' +
-                ", maxScore=" + maxScore +
+                ", lessonOrder=" + lessonOrder +
                 '}';
     }
 }

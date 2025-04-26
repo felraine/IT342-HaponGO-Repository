@@ -81,6 +81,8 @@ export default function SignUp() {
     }
 
     try {
+      //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
+      //development http://localhost:8080/api/lesson-contents/lesson/${lessonId}
       const response = await fetch('http://localhost:8080/api/users/register', {
         method: 'POST',
         headers: {

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LessonQuizService {
@@ -19,40 +18,41 @@ public class LessonQuizService {
         return lessonQuizRepository.findAll();
     }
 
-    // Get quizzes by lesson ID
-    public List<LessonQuiz> getQuizzesByLessonId(int lessonId) {
-        return lessonQuizRepository.findByLesson_LessonId(lessonId);
+    // Get quiz by ID
+    public LessonQuiz getQuizById(long questionId) {
+        return lessonQuizRepository.findById(questionId)
+                .orElseThrow(() -> new RuntimeException("LessonQuiz not found with id: " + questionId));
     }
 
-    // Get a quiz by ID
-    public Optional<LessonQuiz> getQuizById(int questionId) {
-        return lessonQuizRepository.findById(questionId);
-    }
-
-    // Create a new quiz
-    public LessonQuiz createQuiz(LessonQuiz lessonQuiz) {
+    // Add new quiz
+    public LessonQuiz addQuiz(LessonQuiz lessonQuiz) {
         return lessonQuizRepository.save(lessonQuiz);
     }
 
-    // Update an existing quiz
-    public LessonQuiz updateQuiz(int questionId, LessonQuiz lessonQuizDetails) {
-        Optional<LessonQuiz> lessonQuizOptional = lessonQuizRepository.findById(questionId);
-        if (lessonQuizOptional.isPresent()) {
-            LessonQuiz existingQuiz = lessonQuizOptional.get();
-            existingQuiz.setQuestion(lessonQuizDetails.getQuestion());
-            existingQuiz.setChoice1(lessonQuizDetails.getChoice1());
-            existingQuiz.setChoice2(lessonQuizDetails.getChoice2());
-            existingQuiz.setChoice3(lessonQuizDetails.getChoice3());
-            existingQuiz.setChoice4(lessonQuizDetails.getChoice4());
-            existingQuiz.setAnswer(lessonQuizDetails.getAnswer());
+    // Update existing quiz
+    public LessonQuiz updateQuiz(long questionId, LessonQuiz updatedQuiz) {
+        return lessonQuizRepository.findById(questionId).map(existingQuiz -> {
+            existingQuiz.setQuestion(updatedQuiz.getQuestion());
+            existingQuiz.setChoice1(updatedQuiz.getChoice1());
+            existingQuiz.setChoice2(updatedQuiz.getChoice2());
+            existingQuiz.setChoice3(updatedQuiz.getChoice3());
+            existingQuiz.setChoice4(updatedQuiz.getChoice4());
+            existingQuiz.setAnswer(updatedQuiz.getAnswer());
+            existingQuiz.setLesson(updatedQuiz.getLesson()); // <-- Add this if you want to allow reassigning the quiz to another lesson
             return lessonQuizRepository.save(existingQuiz);
-        } else {
-            return null; // Handle quiz not found, return null or throw exception
-        }
+        }).orElseThrow(() -> new RuntimeException("LessonQuiz not found with id: " + questionId));
     }
 
-    // Delete a quiz by ID
-    public void deleteQuiz(int questionId) {
+    // Delete quiz by ID
+    public void deleteQuiz(long questionId) {
+        if (!lessonQuizRepository.existsById(questionId)) {
+            throw new RuntimeException("LessonQuiz not found with id: " + questionId);
+        }
         lessonQuizRepository.deleteById(questionId);
+    }
+
+    // Get quizzes by lesson ID
+    public List<LessonQuiz> getQuizzesByLessonId(long lessonId) {
+        return lessonQuizRepository.findByLesson_LessonId(lessonId);
     }
 }

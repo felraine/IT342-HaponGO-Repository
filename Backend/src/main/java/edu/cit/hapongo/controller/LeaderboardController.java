@@ -2,7 +2,10 @@ package edu.cit.hapongo.controller;
 
 import edu.cit.hapongo.model.Leaderboards;
 import edu.cit.hapongo.model.User;
+import edu.cit.hapongo.model.Lesson;
 import edu.cit.hapongo.service.LeaderboardService;
+import edu.cit.hapongo.repository.LessonRepository;
+import edu.cit.hapongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,59 +20,84 @@ public class LeaderboardController {
     @Autowired
     private LeaderboardService leaderboardService;
 
-    // Endpoint to add or update points for a user in a specific lesson
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private LessonRepository lessonRepository;
+
     @PostMapping("/update")
     public ResponseEntity<Leaderboards> addOrUpdatePoints(
-            @RequestParam int userId,   
-            @RequestParam int lessonId, 
+            @RequestParam Long userId,   
+            @RequestParam Long lessonId, 
             @RequestParam int points) {
-        
-        User user = new User();
-        user.setUserId(userId);
-        
-        Leaderboards leaderboard = leaderboardService.addOrUpdatePoints(user, lessonId, points);
+
+        Optional<User> userOpt = userRepository.findById(userId);
+        Optional<Lesson> lessonOpt = lessonRepository.findById(lessonId);
+
+        if (!userOpt.isPresent() || !lessonOpt.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = userOpt.get();
+        Lesson lesson = lessonOpt.get();
+
+        Leaderboards leaderboard = leaderboardService.addOrUpdatePoints(user, lesson, points);
         
         return ResponseEntity.ok(leaderboard);
     }
 
-    // Endpoint to get the leaderboard by user and lesson
     @GetMapping("/user/{userId}/lesson/{lessonId}")
     public ResponseEntity<Leaderboards> getLeaderboardByUserAndLesson(
-            @PathVariable int userId,   
-            @PathVariable int lessonId) {
-        
-        User user = new User();
-        user.setUserId(userId); 
-        
-        Optional<Leaderboards> leaderboard = leaderboardService.getLeaderboardByUserAndLesson(user, lessonId);
-        
+            @PathVariable Long userId,   
+            @PathVariable Long lessonId) {
+
+        Optional<User> userOpt = userRepository.findById(userId);
+        Optional<Lesson> lessonOpt = lessonRepository.findById(lessonId);
+
+        if (!userOpt.isPresent() || !lessonOpt.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = userOpt.get();
+        Lesson lesson = lessonOpt.get();
+
+        Optional<Leaderboards> leaderboard = leaderboardService.getLeaderboardByUserAndLesson(user, lesson);
+
         return leaderboard.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Endpoint to get the leaderboard entries for a specific user
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Leaderboards>> getLeaderboardsForUser(@PathVariable Long userId) {
-        User user = new User();
-        user.setUserId(userId.intValue()); 
-        
+        Optional<User> userOpt = userRepository.findById(userId);
+
+        if (!userOpt.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = userOpt.get();
         List<Leaderboards> leaderboards = leaderboardService.getLeaderboardsForUser(user);
-        
+
         return ResponseEntity.ok(leaderboards);
     }
 
-    // Endpoint to get the top leaderboard for a specific lesson
     @GetMapping("/lesson/{lessonId}/top")
-    public ResponseEntity<List<Leaderboards>> getTopLeaderboardForLesson(@PathVariable int lessonId) {
-        List<Leaderboards> leaderboards = leaderboardService.getTopLeaderboardForLesson(lessonId);
-        
+    public ResponseEntity<List<Leaderboards>> getTopLeaderboardForLesson(@PathVariable Long lessonId) {
+        Optional<Lesson> lessonOpt = lessonRepository.findById(lessonId);
+
+        if (!lessonOpt.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Lesson lesson = lessonOpt.get();
+        List<Leaderboards> leaderboards = leaderboardService.getTopLeaderboardForLesson(lesson);
+
         return ResponseEntity.ok(leaderboards);
     }
 
-    // Endpoint to get the top 10 leaderboard entries across all lessons
     @GetMapping("/top10")
     public ResponseEntity<List<Leaderboards>> getTop10LeaderboardOverall() {
         List<Leaderboards> leaderboards = leaderboardService.getTop10LeaderboardOverall();
-        
         return ResponseEntity.ok(leaderboards);
     }
 }

@@ -10,14 +10,15 @@ public class Leaderboards {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int leaderboardId;
+    private long leaderboardId;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "lesson_id", nullable = false)
-    private int lessonId;
+    @ManyToOne
+    @JoinColumn(name = "lesson_id", nullable = false)
+    private Lesson lesson;
 
     @Column(name = "points", nullable = false)
     private int points;
@@ -29,19 +30,19 @@ public class Leaderboards {
     public Leaderboards() {
     }
 
-    public Leaderboards(User user, int lessonId, int points, LocalDateTime updatedAt) {
+    public Leaderboards(User user, Lesson lesson, int points, LocalDateTime updatedAt) {
         this.user = user;
-        this.lessonId = lessonId;
+        this.lesson = lesson;
         this.points = points;
         this.updatedAt = updatedAt;
     }
 
     // Getters and Setters
-    public int getLeaderboardId() {
+    public long getLeaderboardId() {
         return leaderboardId;
     }
 
-    public void setLeaderboardId(int leaderboardId) {
+    public void setLeaderboardId(long leaderboardId) {
         this.leaderboardId = leaderboardId;
     }
 
@@ -53,12 +54,12 @@ public class Leaderboards {
         this.user = user;
     }
 
-    public int getLessonId() {
-        return lessonId;
+    public Lesson getLesson() {
+        return lesson;
     }
 
-    public void setLessonId(int lessonId) {
-        this.lessonId = lessonId;
+    public void setLesson(Lesson lesson) {
+        this.lesson = lesson;
     }
 
     public int getPoints() {
@@ -83,7 +84,7 @@ public class Leaderboards {
         return "Leaderboards{" +
                 "leaderboardId=" + leaderboardId +
                 ", user=" + user.getName() +
-                ", lessonId=" + lessonId +
+                ", lesson=" + lesson.getLessonName() + // assuming Lesson has a getLessonName() method
                 ", points=" + points +
                 ", updatedAt=" + updatedAt +
                 '}';

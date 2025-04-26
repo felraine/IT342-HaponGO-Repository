@@ -182,10 +182,11 @@ export default function LessonQuizPage() {
           </div>
         </div>
       </header>
-
+        
       <div className="flex flex-row items-center gap-4 mx-auto mt-4 text-left shadow-md bg-white">
         <a href="/admin-dashboard" className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Dashboard</a>
       </div>
+      
       <div className="bg-[#FFFBED] p-16 shadow-xl w-full min-h-screen text-left mt-2">
         {/* Title Area*/}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4"> 
@@ -204,8 +205,9 @@ export default function LessonQuizPage() {
         {quizzes.map((quiz) => {
           const isEditing = editingId === quiz.questionId;
           return (
-            <div key={quiz.questionId} className="bg-[#FFE79B] p-8 rounded-xl shadow-lg relative space-y-4 hover:shadow-2xl transition duration-200">
-              <div className="text-lg font-semibold text-gray-800">{quiz.question}</div>
+            <div key={quiz.questionId} 
+            className="bg-[#FFE79B] p-8 rounded-xl shadow-lg relative space-y-4 hover:shadow-2xl transition duration-200">
+            <div className="text-lg font-semibold text-gray-800">{quiz.question}</div>
 
               {["choice1", "choice2", "choice3", "choice4"].map((field) => (
                 <div key={field} className="text-md text-gray-700">

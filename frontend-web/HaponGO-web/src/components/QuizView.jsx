@@ -198,7 +198,7 @@ const QuizView = () => {
               {showResult && (
                 <div className="mt-6 text-center">
                   <p className={`text-xl font-semibold ${isCorrect ? 'text-green-700' : 'text-red-700'}`}>
-                    {isCorrect ? 'Correct!' : `Wrong. Correct Answer: ${currentQuiz.answer}`}
+                    {isCorrect ? 'Correct!' : `Incorrect!`}
                   </p>
                 </div>
               )}

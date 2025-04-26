@@ -2,11 +2,13 @@ package com.example.hapongo
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.hapongo.model.User
 
 class ProfilePage : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -24,5 +26,30 @@ class ProfilePage : AppCompatActivity() {
         backButton.setOnClickListener {
             finish()
         }
+
+        val name = findViewById<EditText>(R.id.nameEditText)
+        val userEmail = findViewById<EditText>(R.id.emailEditText)
+        val userPassword = findViewById<EditText>(R.id.passwordEditText)
+
+        name.isEnabled = false
+        userEmail.isEnabled = false
+        userPassword.isEnabled = false
+
+        // Example user data (replace with actual user from login/session)
+        val currentUser = intent.getSerializableExtra("user") as? User
+
+        if (currentUser != null) {
+            name.setText(currentUser.name)
+            userEmail.setText(currentUser.email)
+        } else {
+            name.setText("Unknown")
+            userEmail.setText("Unknown")
+        }
+
+        userPassword.setText("**********") // 10 asterisks
+    }
+
+    private fun enableEdgeToEdge() {
+        // Optional edge-to-edge implementation
     }
 }

@@ -75,8 +75,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun createUserTextView(user: User): TextView {
         return TextView(this).apply {
-            text = "ID: ${user.user_id}   Name: ${user.name}   Email: ${user.email}"
-            // Optional: set padding/margins here
+            text = "ID: ${user.userId}   Name: ${user.name}   Email: ${user.email}"
             setPadding(16, 16, 16, 16)
         }
     }

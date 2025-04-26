@@ -24,7 +24,7 @@ public class User {
 
     @Column(unique = true, nullable = false)                 // Email of the user
     @Email(message = "Email should be valid")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String email;
 
     @Column(nullable = false)                                // Password of the user 

@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.hapongo.model.User
 
 class Homepage : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -21,9 +22,11 @@ class Homepage : AppCompatActivity() {
             insets
         }
 
+        val currentUser = intent.getSerializableExtra("user") as? User
         val imgProfile: ImageView = findViewById(R.id.imgProfile)
         imgProfile.setOnClickListener {
             val intent = Intent(this, ProfilePage::class.java)
+            intent.putExtra("user", currentUser)
             startActivity(intent)
         }
     }

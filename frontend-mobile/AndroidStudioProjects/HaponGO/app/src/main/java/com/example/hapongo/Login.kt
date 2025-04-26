@@ -12,11 +12,25 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.hapongo.network.ApiService
 import com.example.hapongo.network.RetrofitInstance
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
 
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+
+
 class Login : AppCompatActivity() {
     private lateinit var apiService: ApiService
+    private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var firebaseAuth: FirebaseAuth
+
+    companion object {
+        private const val RC_SIGN_IN = 9001
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +49,11 @@ class Login : AppCompatActivity() {
         val passwordInput = findViewById<TextInputEditText>(R.id.password_input_signup)
         val signinButton  = findViewById<Button>(R.id.sign_in_button)
         val signUpTextView = findViewById<TextView>(R.id.create_account_text)
+        val signInGoogle = findViewById<Button>(R.id.google_sign_in_button)
+
+        signInGoogle.setOnClickListener {
+            signInWithGoogle()
+        }
 
         signUpTextView.setOnClickListener {
             startActivity(Intent(this, Register::class.java))
@@ -50,6 +69,18 @@ class Login : AppCompatActivity() {
                 loginUser(email, password)
             }
         }
+
+
+        // OAuth connection part
+        firebaseAuth = FirebaseAuth.getInstance()
+
+        // Configure Google Sign In
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))  // important!
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
     }
 
     private fun loginUser(email: String, password: String) {
@@ -71,5 +102,43 @@ class Login : AppCompatActivity() {
                 Toast.makeText(this@Login, "Error: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun signInWithGoogle() {
+        val signInIntent = googleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)!!
+                firebaseAuthWithGoogle(account.idToken!!)
+            } catch (e: ApiException) {
+                Toast.makeText(this, "Google sign in failed: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        firebaseAuth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success
+                    val user = firebaseAuth.currentUser
+                    Toast.makeText(this, "Welcome, ${user?.displayName}", Toast.LENGTH_SHORT).show()
+
+                    // Go to homepage after successful login
+                    startActivity(Intent(this, Homepage::class.java))
+                    finish()
+                } else {
+                    // If sign in fails
+                    Toast.makeText(this, "Authentication Failed.", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 }

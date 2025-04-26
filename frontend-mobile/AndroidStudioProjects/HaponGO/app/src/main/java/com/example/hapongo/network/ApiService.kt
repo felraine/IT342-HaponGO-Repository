@@ -45,7 +45,7 @@ interface ApiService {
     // Update user
     @PUT("users/update_user/{id}")
     suspend fun updateUser(
-        @Path("id") id: Int,
+        @Path("id") id: Long,
         @Body user: User
     ): Response<User>
 

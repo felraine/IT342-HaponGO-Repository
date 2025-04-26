@@ -53,6 +53,7 @@ export default function LessonQuizPage() {
     );
   };
 
+  //Handle save quiz
   const handleSave = async (quizId) => {
     const quiz = quizzes.find((q) => q.questionId === quizId);
     if (!quiz) return;
@@ -100,6 +101,7 @@ export default function LessonQuizPage() {
     }
   };
 
+  // adding a new quiz
   const handleAddQuiz = async () => {
     const newLessonQuiz = {
       lesson: { lessonId: Number(id) },
@@ -201,57 +203,61 @@ export default function LessonQuizPage() {
         </div>
         </div>
 
-        <div className="space-y-6">
-        {quizzes.map((quiz) => {
-          const isEditing = editingId === quiz.questionId;
-          return (
-            <div key={quiz.questionId} 
-            className="bg-[#FFE79B] p-8 rounded-xl shadow-lg relative space-y-4 hover:shadow-2xl transition duration-200">
-            <div className="text-lg font-semibold text-gray-800">{quiz.question}</div>
-
-              {["choice1", "choice2", "choice3", "choice4"].map((field) => (
-                <div key={field} className="text-md text-gray-700">
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      value={quiz[field]}
-                      onChange={(e) => handleChange(e, quiz.questionId, field)}
-                      className="w-full bg-white p-3 border border-gray-300 rounded-md text-lg mb-2"
-                      placeholder={`Option ${field.charAt(6)}`}
-                    />
-                  ) : (
-                    <p className="p-3 bg-white rounded-md text-lg font-medium">{quiz[field]}</p>
-                  )}
-                </div>
-              ))}
-
-              {/* Add this section to display the correct answer */}
-              <div className="text-md text-gray-700 font-bold">
-                <p className="p-3 bg-white rounded-md text-lg">{`Answer: ${quiz.answer}`}</p>
-              </div>
-
-              <div className="flex justify-between items-center">
-                {isEditing ? (
-                  <button onClick={() => toggleEdit(quiz.questionId)} className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200">
-                    Save
-                  </button>
-                ) : (
-                  <button onClick={() => toggleEdit(quiz.questionId)} className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-200">
-                    Edit
-                  </button>
-                )}
-
-                <button
-                  onClick={() => handleDelete(quiz.questionId)}
-                  className="text-red-600 hover:text-red-800 transition duration-200"
-                >
-                  <i className="fas fa-trash-alt"></i>
-                </button>
-              </div>
-            </div>
-          );
-        })}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {quizzes.map((quiz) => {
+      const isEditing = editingId === quiz.questionId;
+      return (
+        <div
+          key={quiz.questionId}
+          className="bg-[#FFE79B] p-4 rounded-xl shadow-md relative hover:shadow-lg transition duration-200"
+        >
+          {/* Edit and Delete Buttons on top right */}
+          <div className="absolute top-3 right-3 flex space-x-3">
+            {isEditing ? (
+              <button
+              onClick={() => toggleEdit(quiz.questionId)}
+              className="bg-blue-500 text-white p-1 px-2 rounded hover:bg-blue-600 transition">Save </button>
+          ) : (
+            <button
+              onClick={() => toggleEdit(quiz.questionId)}
+              className="text-yellow-600 hover:text-yellow-700 text-xl transition" ><i className="fas fa-pen"></i></button>
+          )}
+          <button
+            onClick={() => handleDelete(quiz.questionId)}
+            className="text-red-600 hover:text-red-700 text-xl transition"><i className="fas fa-trash"></i></button>
         </div>
+
+        {/* Question */}
+        <div className="text-base md:text-lg font-semibold text-gray-800 mb-4 pr-16">
+          {quiz.question}
+        </div>
+
+        {/* Choices */}
+        {["choice1", "choice2", "choice3", "choice4"].map((field) => (
+          <div key={field} className="text-sm md:text-base text-gray-700">
+            {isEditing ? (
+              <input
+                type="text"
+                value={quiz[field]}
+                onChange={(e) => handleChange(e, quiz.questionId, field)}
+                className="w-full bg-white p-2 md:p-3 border border-gray-300 rounded-md text-base mb-2"
+                placeholder={`Option ${field.charAt(6)}`}
+              />
+            ) : (
+              <p className="p-2 md:p-3 bg-white rounded-md font-medium mb-2">
+                {quiz[field]}
+              </p>
+            )}
+          </div>
+        ))}
+            {/* Correct Answer */}
+            <div className="text-sm md:text-base text-gray-700 font-bold">
+              <p className="p-2 md:p-3 bg-white rounded-md">{`Answer: ${quiz.answer}`}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
         
         {/* Modal To add new Quiz Item */}
         {isModalOpen && (

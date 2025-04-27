@@ -26,7 +26,7 @@ const Leaderboard = () => {
       setLessons(sortedLessons);
 
       if (sortedLessons.length > 0) {
-        setSelectedLesson(sortedLessons[0].lessonId); // Default to the lesson with the lowest lessonOrder
+        setSelectedLesson(sortedLessons[0].lessonId); // Default to first lesson
       }
     };
     fetchLessons();
@@ -39,7 +39,11 @@ const Leaderboard = () => {
       const url = `http://localhost:8080/api/leaderboards/lesson/${selectedLesson}/top`;
       const res = await fetch(url);
       const data = await res.json();
-      setLeaderboards(data);
+      
+      // SORT THE LEADERBOARD BASED ON POINTS (Descending)
+      const sortedData = [...data].sort((a, b) => b.points - a.points);
+
+      setLeaderboards(sortedData);
     };
     fetchLeaderboard();
   }, [selectedLesson]);
@@ -95,7 +99,7 @@ const Leaderboard = () => {
 
       {/* Navigation */}
       <div className="flex flex-row items-center gap-4 mx-auto mt-12 text-left">
-        <a href="/dashboard"className="text-black text-[20px] lg:text-[22px] pl-20">Lessons</a>
+        <a href="/dashboard" className="text-black text-[20px] lg:text-[22px] pl-20">Lessons</a>
         <h2 className="text-black text-[20px] lg:text-[22px] pl-20">Dictionary</h2>
         <a href="/leaderboard" className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Leaderboards</a>
       </div>

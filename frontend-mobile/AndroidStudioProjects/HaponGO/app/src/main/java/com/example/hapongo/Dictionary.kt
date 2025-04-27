@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hapongo.adapter.WordsAdapter
 import com.example.hapongo.model.Dictionary
 import com.example.hapongo.network.ApiService
 import com.example.hapongo.network.RetrofitInstance

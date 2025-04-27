@@ -1,11 +1,11 @@
-package com.example.hapongo
+package com.example.hapongo.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hapongo.R
 import com.example.hapongo.model.Dictionary
 
 class WordsAdapter(private var words: List<Dictionary>) :

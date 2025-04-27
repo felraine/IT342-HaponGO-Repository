@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 
 export default function LessonQuizPage() {
   const { id } = useParams();
@@ -9,6 +9,7 @@ export default function LessonQuizPage() {
   const [editingId, setEditingId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
   const [newQuiz, setNewQuiz] = useState({
     question: "",
     choice1: "",
@@ -52,6 +53,7 @@ export default function LessonQuizPage() {
     );
   };
 
+  //Handle save quiz
   const handleSave = async (quizId) => {
     const quiz = quizzes.find((q) => q.questionId === quizId);
     if (!quiz) return;
@@ -99,6 +101,7 @@ export default function LessonQuizPage() {
     }
   };
 
+  // adding a new quiz
   const handleAddQuiz = async () => {
     const newLessonQuiz = {
       lesson: { lessonId: Number(id) },
@@ -181,74 +184,86 @@ export default function LessonQuizPage() {
           </div>
         </div>
       </header>
-
+        
       <div className="flex flex-row items-center gap-4 mx-auto mt-4 text-left shadow-md bg-white">
         <a href="/admin-dashboard" className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Dashboard</a>
       </div>
-
-      <div className="bg-[#FFFBED] p-8 shadow-xl w-full min-h-screen text-left mt-2">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-black text-left text-[18px] lg:text-[22px] font-bold pl--20">{lessonName} - Quiz</h2>
-          <button className="bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 transition duration-200" onClick={() => setIsModalOpen(true)}>
+      
+      <div className="bg-[#FFFBED] p-16 shadow-xl w-full min-h-screen text-left mt-2">
+        {/* Title Area*/}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4"> 
+      <h2 className="text-black text-left text-[18px] lg:text-[22px] font-bold">{lessonName} - Quiz</h2>
+      <div className="flex gap-4 ml-auto">
+          <button
+            className="bg-[#E53838] font-bold text-white px-4 py-2 rounded-lg w-full sm:w-auto hover:bg-red-700 shadow-md transition-all duration-300"
+            onClick={() => navigate(`/admin-lesson/${id}`)}> Back to Edit Lessons </button>
+          <button className="bg-[#00BC8F] font-bold text-white px-4 py-2 rounded-lg w-full sm:w-auto hover:bg-[#009D77]" onClick={() => setIsModalOpen(true)}>
             + Add Quiz Question
           </button>
         </div>
-
-        <div className="space-y-6">
-        {quizzes.map((quiz) => {
-          const isEditing = editingId === quiz.questionId;
-          return (
-            <div key={quiz.questionId} className="bg-[#FFE79B] p-8 rounded-xl shadow-lg relative space-y-4 hover:shadow-2xl transition duration-200">
-              <div className="text-lg font-semibold text-gray-800">{quiz.question}</div>
-
-              {["choice1", "choice2", "choice3", "choice4"].map((field) => (
-                <div key={field} className="text-md text-gray-700">
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      value={quiz[field]}
-                      onChange={(e) => handleChange(e, quiz.questionId, field)}
-                      className="w-full bg-white p-3 border border-gray-300 rounded-md text-lg mb-2"
-                      placeholder={`Option ${field.charAt(6)}`}
-                    />
-                  ) : (
-                    <p className="p-3 bg-white rounded-md text-lg font-medium">{quiz[field]}</p>
-                  )}
-                </div>
-              ))}
-
-              {/* Add this section to display the correct answer */}
-              <div className="text-md text-gray-700 font-bold">
-                <p className="p-3 bg-white rounded-md text-lg">{`Answer: ${quiz.answer}`}</p>
-              </div>
-
-              <div className="flex justify-between items-center">
-                {isEditing ? (
-                  <button onClick={() => toggleEdit(quiz.questionId)} className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200">
-                    Save
-                  </button>
-                ) : (
-                  <button onClick={() => toggleEdit(quiz.questionId)} className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-200">
-                    Edit
-                  </button>
-                )}
-
-                <button
-                  onClick={() => handleDelete(quiz.questionId)}
-                  className="text-red-600 hover:text-red-800 transition duration-200"
-                >
-                  <i className="fas fa-trash-alt"></i>
-                </button>
-              </div>
-            </div>
-          );
-        })}
         </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {quizzes.map((quiz) => {
+      const isEditing = editingId === quiz.questionId;
+      return (
+        <div
+          key={quiz.questionId}
+          className="bg-[#FFE79B] p-4 rounded-xl shadow-md relative hover:shadow-lg transition duration-200"
+        >
+          {/* Edit and Delete Buttons on top right */}
+          <div className="absolute top-3 right-3 flex space-x-3">
+            {isEditing ? (
+              <button
+              onClick={() => toggleEdit(quiz.questionId)}
+              className="bg-blue-500 text-white p-1 px-2 rounded hover:bg-blue-600 transition">Save </button>
+          ) : (
+            <button
+              onClick={() => toggleEdit(quiz.questionId)}
+              className="text-yellow-600 hover:text-yellow-700 text-xl transition" ><i className="fas fa-pen"></i></button>
+          )}
+          <button
+            onClick={() => handleDelete(quiz.questionId)}
+            className="text-red-600 hover:text-red-700 text-xl transition"><i className="fas fa-trash"></i></button>
+        </div>
+
+        {/* Question */}
+        <div className="text-base md:text-lg font-semibold text-gray-800 mb-4 pr-16">
+          {quiz.question}
+        </div>
+
+        {/* Choices */}
+        {["choice1", "choice2", "choice3", "choice4"].map((field) => (
+          <div key={field} className="text-sm md:text-base text-gray-700">
+            {isEditing ? (
+              <input
+                type="text"
+                value={quiz[field]}
+                onChange={(e) => handleChange(e, quiz.questionId, field)}
+                className="w-full bg-white p-2 md:p-3 border border-gray-300 rounded-md text-base mb-2"
+                placeholder={`Option ${field.charAt(6)}`}
+              />
+            ) : (
+              <p className="p-2 md:p-3 bg-white rounded-md font-medium mb-2">
+                {quiz[field]}
+              </p>
+            )}
+          </div>
+        ))}
+            {/* Correct Answer */}
+            <div className="text-sm md:text-base text-gray-700 font-bold">
+              <p className="p-2 md:p-3 bg-white rounded-md">{`Answer: ${quiz.answer}`}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+        
+        {/* Modal To add new Quiz Item */}
         {isModalOpen && (
           <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50" style={{ background: "rgba(0, 0, 0, 0.3)" }}>
-            <div className="bg-white p-6 rounded-lg w-1/3">
-              <h3 className="text-xl font-semibold mb-4">Add New Quiz Question</h3>
+            <div className="bg-[#FFE79B] p-6 rounded-lg w-1/3 ">
+              <h3 className="text-xl font-semibold mb-4 text-center">Add New Quiz Question</h3>
 
               {["question", "choice1", "choice2", "choice3", "choice4", "answer"].map((field) => (
                 <input
@@ -258,15 +273,15 @@ export default function LessonQuizPage() {
                   placeholder={field}
                   value={newQuiz[field]}
                   onChange={handleModalChange}
-                  className="w-full p-3 border mb-4 rounded-md"
+                  className="w-full p-3 mb-4 bg-white shadow-sm"
                 />
               ))}
 
-              <div className="flex justify-between">
-                <button onClick={handleAddQuiz} className="bg-green-500 text-white p-3 rounded-md hover:bg-green-600 transition duration-200">
+                <div className="flex justify-end gap-4 mt-4">
+                <button onClick={handleAddQuiz} className="bg-[#00BC8F] text-white p-3 rounded hover:bg-[#009D77] w-full">
                   Save
                 </button>
-                <button onClick={handleModalClose} className="bg-gray-500 text-white p-3 rounded-md hover:bg-gray-600 transition duration-200">
+                <button onClick={handleModalClose} className="bg-red-600 text-white p-3 rounded hover:bg-red-700 w-full">
                   Cancel
                 </button>
               </div>

@@ -95,9 +95,9 @@ const Leaderboard = () => {
 
       {/* Navigation */}
       <div className="flex flex-row items-center gap-4 mx-auto mt-12 text-left">
-        <a href="/dashboard" className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Lessons</a>
-        <h2 className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Dictionary</h2>
-        <h2 className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Leaderboards</h2>
+        <a href="/dashboard"className="text-black text-[20px] lg:text-[22px] pl-20">Lessons</a>
+        <h2 className="text-black text-[20px] lg:text-[22px] pl-20">Dictionary</h2>
+        <a href="/leaderboard" className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Leaderboards</a>
       </div>
 
       {/* Leaderboard Container */}

@@ -99,8 +99,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:textColor="#000000"
                 android:background="@drawable/edit_text_background"
-                android:hint="Enter your name"
+                android:editable="false"
                 android:inputType="textPersonName"
                 android:padding="12dp" />
 
@@ -117,32 +118,19 @@
                 android:id="@+id/emailEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#000000"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/edit_text_background"
-                android:hint="Enter your email"
                 android:inputType="textEmailAddress"
                 android:padding="12dp" />
 
             <!-- Password Field -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Password"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/passwordEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/edit_text_background"
-                android:hint="Enter your password"
-                android:inputType="textPassword"
-                android:padding="12dp" />
 
             <!-- Buttons -->
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -17,4 +17,10 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="sign_up">Sign up</string>
     <string name="already_have_account">Already have an account? <u>Sign in here</u>.</string>
+
+
+
+    <!-- IDs -->
+    <!-- ID for web client -->
+    <string name="default_web_client_id">665628323619-ca0vkchcsjui5oku24nc8bp89nptmvrd.apps.googleusercontent.com</string>
 </resources>

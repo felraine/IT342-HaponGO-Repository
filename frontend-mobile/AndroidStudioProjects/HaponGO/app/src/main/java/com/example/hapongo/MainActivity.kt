@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         button3.setOnClickListener {
-            val intent = Intent(this, Homepage::class.java)
+            val intent = Intent(this, Dictionary::class.java)
             startActivity(intent)
         }
 
@@ -75,8 +75,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun createUserTextView(user: User): TextView {
         return TextView(this).apply {
-            text = "ID: ${user.user_id}   Name: ${user.name}   Email: ${user.email}"
-            // Optional: set padding/margins here
+            text = "ID: ${user.userId}   Name: ${user.name}   Email: ${user.email}"
             setPadding(16, 16, 16, 16)
         }
     }

@@ -186,9 +186,16 @@ export default function Dashboard() {
         </div>
       </header>
 
-      <div className="flex flex-row items-center gap-4 mx-auto pt-12 text-left px-20 bg-[#FFFBED]">
-        <a href="/admin-dashboard" className="text-black text-[20px] lg:text-[22px] font-bold">Dashboard</a>
-        <h2 className="text-black text-[20px] lg:text-[22px]">Dictionary</h2>
+      {/* Admin Dashboard Header */}
+      <div className="flex flex-row items-center gap-4 mx-auto mt-4 text-left">
+        <a href="/admin-dashboard" className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Dashboard</a>
+      </div>
+        
+        {/* Admin Publish Lesson Content */}
+      <div className="flex gap-8 p-8 pl-18 pr-18 min-h-screen items-stretch bg-[#FFFBED]">
+        <div className="flex-1 bg-[#FFE79B] p-6 rounded shadow-xl max-h-[450px]"> 
+          <div className="flex items-center justify-between mb-4">
+          <h2 className="text-2xl font-bold mb-4">Published Lessons</h2>
         <button
           onClick={() => {
             setIsModalOpen(true);
@@ -198,11 +205,7 @@ export default function Dashboard() {
         >
           Add Lesson
         </button>
-      </div>
-
-      <div className="flex gap-8 p-8 pl-18 pr-18 min-h-screen items-stretch bg-[#FFFBED]">
-        <div className="flex-1 bg-[#FFE79B] p-6 rounded shadow-xl max-h-[450px]">
-          <h2 className="text-2xl font-bold mb-4">Published Lessons</h2>
+        </div>
           <ul className="space-y-2 max-h-[350px] overflow-y-auto flex-1">
             {lessons
               .sort((a, b) => a.lessonOrder - b.lessonOrder)

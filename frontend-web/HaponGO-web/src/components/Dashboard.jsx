@@ -99,8 +99,8 @@ export default function Dashboard() {
       <div className="flex flex-row items-center gap-4 mx-auto mt-12 text-left">
         {/* Placeholder for the navigation bar */}
         <h2 className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Lessons</h2>
-        <h2 className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Dictionary</h2>
-        <a href="/leaderboard" className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Leaderboards</a>
+        <h2 className="text-black text-[20px] lg:text-[22px] pl-20">Dictionary</h2>
+        <a href="/leaderboard" className="text-black text-[20px] lg:text-[22px] pl-20">Leaderboards</a>
       </div>
 
       {/* Lessons Container */}

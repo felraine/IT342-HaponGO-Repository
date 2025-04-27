@@ -2,6 +2,7 @@ package edu.cit.hapongo.service;
 
 import edu.cit.hapongo.model.Leaderboards;
 import edu.cit.hapongo.repository.LeaderboardRepository;
+import edu.cit.hapongo.repository.projections.UserTotalPoints;
 import edu.cit.hapongo.model.Lesson;
 import edu.cit.hapongo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,4 +49,9 @@ public class LeaderboardService {
     public List<Leaderboards> getTop10LeaderboardOverall() {
         return leaderboardRepository.findTop10ByOrderByPointsDesc();
     }
+
+    public Optional<UserTotalPoints> getUserPoints(Long userId) {
+        List<UserTotalPoints> results = leaderboardRepository.findUserTotalPoints(userId);
+        return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));
+     }
 }

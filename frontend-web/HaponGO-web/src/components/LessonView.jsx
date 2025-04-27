@@ -21,7 +21,7 @@ const LessonView = () => {
     navigate('/'); 
   };
 
-  //pop sound effect
+  //click sound effect
   const playClickSound = () => {
     new Audio('/click-sound.mp3').play(); 
   };
@@ -132,8 +132,10 @@ const LessonView = () => {
 
       {/* Navigation Links */}
       <div className="flex flex-row items-center gap-4 mx-auto mt-12 text-left">
+        {/* Placeholder for the navigation bar */}
         <a href="/dashboard" className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Lessons</a>
-        <h2 className="text-black text-[20px] lg:text-[22px] pl-10">Dictionary</h2>
+        <h2 className="text-black text-[20px] lg:text-[22px] pl-20">Dictionary</h2>
+        <a href="/leaderboard" className="text-black text-[20px] lg:text-[22px] pl-20">Leaderboards</a>
       </div>
 
       {/* Lesson Content Container */}
@@ -185,7 +187,10 @@ const LessonView = () => {
               <div className="flex justify-center mt-8">
               <button
                 className="bg-[#BC002D] text-white text-lg sm:text-xl px-6 py-3 rounded-md hover:bg-red-800 shadow-md transition-all duration-300"
-                onClick={() => navigate(`/quiz/${lessonId}`)}
+                onClick={() => {
+                  playClickSound();
+                  navigate(`/quiz/${lessonId}`);
+                }}
               >
                 Start Quiz
               </button>

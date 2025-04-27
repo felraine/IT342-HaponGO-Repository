@@ -26,6 +26,15 @@ const QuizView = () => {
     navigate('/');
   };
 
+   //pop sound effect
+   const playClickSound = () => {
+    new Audio('/pop-sound.mp3').play(); 
+  };
+
+  const playDingSound = () => {
+    new Audio('/ding-sound.mp3').play(); 
+  };
+
   // Function to handle answer selection
   const handleAnswer = (answer) => {
     setSelectedAnswer(answer);
@@ -151,7 +160,8 @@ const QuizView = () => {
 
       <div className="flex flex-row items-center gap-4 mx-auto mt-12 text-left">
         <a href="/dashboard" className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Lessons</a>
-        <h2 className="text-black text-[20px] lg:text-[22px] pl-10">Dictionary</h2>
+        <h2 className="text-black text-[20px] lg:text-[22px] pl-20">Dictionary</h2>
+        <a href="/leaderboard" className="text-black text-[20px] lg:text-[22px] pl-20">Leaderboards</a>
       </div>
 
       <div className="bg-[#FFE79B] p-8 shadow-xl w-full min-h-screen text-left mt-4">
@@ -180,7 +190,8 @@ const QuizView = () => {
                     <button
                       key={choiceKey}
                       disabled={showResult}
-                      onClick={() => handleAnswer(choiceKey)}
+                      onClick={() => {playDingSound(); handleAnswer(choiceKey)}}
+                      onMouseEnter={playClickSound}
                       className={`py-3 px-6 rounded-xl text-left text-lg border transition
                         ${isSelected
                           ? isAnswerCorrect

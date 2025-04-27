@@ -48,4 +48,9 @@ public class DictionaryController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/search")
+    public List<Dictionary> searchDictionary(@RequestParam String searchTerm) {
+        return service.searchWord(searchTerm);
+    }
 }

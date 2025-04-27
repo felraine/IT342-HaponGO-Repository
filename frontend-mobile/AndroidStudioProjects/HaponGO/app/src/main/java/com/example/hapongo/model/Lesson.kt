@@ -1,7 +1,7 @@
 package com.example.hapongo.model
 
 data class Lesson(
-    val lessonId: Long? = null,
+    val lessonId: Long,
     val lessonName: String,
-    val maxScore: Int
+    val lessonOrder: Int
 )

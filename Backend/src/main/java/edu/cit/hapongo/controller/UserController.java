@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -56,7 +57,7 @@ public class UserController {
     }
     //get user by id
     @GetMapping("/admin/get_user/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable int id) {
+    public ResponseEntity<?> getUserById(@PathVariable long id) {
         Optional<User> user = userService.getUserById(id);
         if (user.isPresent()) {
             return ResponseEntity.ok(user.get());
@@ -76,7 +77,7 @@ public class UserController {
     }
     //delete user
     @DeleteMapping("/delete_user/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable int id) {
+    public ResponseEntity<?> deleteUser(@PathVariable long id) {
         try {
             userService.deleteUser(id);
             return ResponseEntity.ok("User deleted successfully");

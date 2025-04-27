@@ -57,13 +57,21 @@ export default function LessonQuizPage() {
   const handleSave = async (quizId) => {
     const quiz = quizzes.find((q) => q.questionId === quizId);
     if (!quiz) return;
-
+  
+    // Ensure lesson is assigned
+    if (!quiz.lesson) {
+      quiz.lesson = { lessonId: Number(id) }; // Assign lessonId if not already present
+    }
+  
+    console.log("Quiz data before saving:", quiz);
+  
     try {
       const response = await fetch(`http://localhost:8080/api/lesson-quizzes/${quizId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          lesson: quiz.lesson,
+          questionId: quiz.questionId, // Send the questionId to correctly identify the quiz
+          lesson: quiz.lesson,  // Ensure lesson is included
           question: quiz.question,
           choice1: quiz.choice1,
           choice2: quiz.choice2,
@@ -72,7 +80,7 @@ export default function LessonQuizPage() {
           answer: quiz.answer
         }),
       });
-
+  
       if (response.ok) {
         console.log("Quiz updated successfully");
         setEditingId(null);
@@ -82,7 +90,7 @@ export default function LessonQuizPage() {
     } catch (error) {
       console.error("Error saving quiz:", error);
     }
-  };
+  };  
 
   const handleDelete = async (quizId) => {
     try {

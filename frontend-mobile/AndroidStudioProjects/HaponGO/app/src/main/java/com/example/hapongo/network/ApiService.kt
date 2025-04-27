@@ -1,7 +1,9 @@
 package com.example.hapongo.network
 
 import com.example.hapongo.model.Dictionary
+import com.example.hapongo.model.Lesson
 import com.example.hapongo.model.User
+import com.example.hapongo.model.LessonContent
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
@@ -88,4 +90,13 @@ interface ApiService {
     suspend fun searchDictionary(
         @Query("searchTerm") searchTerm: String
     ): Response<List<Dictionary>>
+
+    // ----------Homepage------------
+    @GET("lessons")
+    suspend fun getAllLessons(): Response<List<Lesson>>
+
+    @GET("lesson-contents/lesson/{lessonId}")
+    suspend fun getLessonContentsByLessonId(
+        @Path("lessonId") lessonId: Long
+    ): Response<List<LessonContent>>
 }

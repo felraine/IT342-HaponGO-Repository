@@ -5,6 +5,9 @@
       <SelectionState runConfigName="HaponGO.app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
+      <SelectionState runConfigName="AndroidStudioProjects.HaponGO.app">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
     </selectionStates>
   </component>
 </project>

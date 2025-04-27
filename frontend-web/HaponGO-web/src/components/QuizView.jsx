@@ -78,7 +78,7 @@ const QuizView = () => {
         return;
       }
 
-      // Logging the parameters before submitting
+      // Logging the parameters b efore submitting
       console.log('Submitting:', { userId, lessonId, points: score });
 
       const url = new URL('http://localhost:8080/api/leaderboards/update');

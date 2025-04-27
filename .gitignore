@@ -69,3 +69,4 @@ node_modules/
 .dataconnect
 backend/src/main/resources/application.properties
 /frontend-mobile/AndroidStudioProjects/HaponGO/.idea
+frontend-mobile/AndroidStudioProjects/HaponGO/.idea/misc.xml

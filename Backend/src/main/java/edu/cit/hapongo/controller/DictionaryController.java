@@ -23,7 +23,7 @@ public class DictionaryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Dictionary> getWordById(@PathVariable int id) {
+    public ResponseEntity<Dictionary> getWordById(@PathVariable long id) {
         return service.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -35,7 +35,7 @@ public class DictionaryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Dictionary> updateWord(@PathVariable int id, @RequestBody Dictionary word) {
+    public ResponseEntity<Dictionary> updateWord(@PathVariable long id, @RequestBody Dictionary word) {
         try {
             return ResponseEntity.ok(service.update(id, word));
         } catch (RuntimeException e) {
@@ -44,7 +44,7 @@ public class DictionaryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteWord(@PathVariable int id) {
+    public ResponseEntity<Void> deleteWord(@PathVariable long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

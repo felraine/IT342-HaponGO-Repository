@@ -43,4 +43,10 @@ public class DictionaryService {
     public void delete(long id) {
         repository.deleteById(id);
     }
+
+    // search funtion
+    public List<Dictionary> searchWord(String searchTerm) {
+        String searchPattern = "%" + searchTerm + "%";
+        return repository.searchWord(searchPattern);
+    }
 }

@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         button3.setOnClickListener {
-            val intent = Intent(this, Homepage::class.java)
+            val intent = Intent(this, Dictionary::class.java)
             startActivity(intent)
         }
 

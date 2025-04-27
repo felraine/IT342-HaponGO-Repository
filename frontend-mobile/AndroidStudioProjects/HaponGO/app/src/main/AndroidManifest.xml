@@ -25,6 +25,9 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
+            android:name=".Dictionary"
+            android:exported="false" />
+        <activity
             android:name=".Homepage"
             android:exported="false" />
         <activity

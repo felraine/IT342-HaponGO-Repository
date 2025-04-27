@@ -24,8 +24,8 @@ class WordsAdapter(private var words: List<Dictionary>) :
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val wordItem = words[position]
-        holder.japaneseText.text = wordItem.japanese_reading
-        holder.englishText.text = wordItem.english_word
+        holder.japaneseText.text = wordItem.japaneseReading
+        holder.englishText.text = wordItem.englishWord
     }
 
     override fun getItemCount(): Int {

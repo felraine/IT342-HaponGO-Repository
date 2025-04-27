@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hapongo.model.Lesson
+import com.example.hapongo.model.User
 import com.example.hapongo.network.ApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -44,9 +45,12 @@ class Homepage : AppCompatActivity() {
         fetchLessons()
 
         // Profile image click listener (as before)
+        val currentUser = intent.getSerializableExtra("user") as? User
         val imgProfile: ImageView = findViewById(R.id.imgProfile)
         imgProfile.setOnClickListener {
-            // Open profile page (existing logic)
+            val intent = Intent(this, ProfilePage::class.java)
+            intent.putExtra("user", currentUser)
+            startActivity(intent)
         }
     }
 

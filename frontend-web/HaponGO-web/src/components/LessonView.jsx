@@ -133,7 +133,8 @@ const LessonView = () => {
       {/* Navigation Links */}
       <div className="flex flex-row items-center gap-4 mx-auto mt-12 text-left">
         <a href="/dashboard" className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Lessons</a>
-        <h2 className="text-black text-[20px] lg:text-[22px] pl-10">Dictionary</h2>
+        <h2 className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Dictionary</h2>
+        <a href="/leaderboard" className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Leaderboards</a>
       </div>
 
       {/* Lesson Content Container */}

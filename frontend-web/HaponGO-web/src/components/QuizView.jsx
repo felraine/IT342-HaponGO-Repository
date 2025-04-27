@@ -69,7 +69,7 @@ const QuizView = () => {
         return;
       }
 
-      // Logging the parameters before submitting
+      // Logging the parameters b efore submitting
       console.log('Submitting:', { userId, lessonId, points: score });
 
       const url = new URL('http://localhost:8080/api/leaderboards/update');
@@ -151,7 +151,8 @@ const QuizView = () => {
 
       <div className="flex flex-row items-center gap-4 mx-auto mt-12 text-left">
         <a href="/dashboard" className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Lessons</a>
-        <h2 className="text-black text-[20px] lg:text-[22px] pl-10">Dictionary</h2>
+        <h2 className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Dictionary</h2>
+        <a href="/leaderboard" className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Leaderboards</a>
       </div>
 
       <div className="bg-[#FFE79B] p-8 shadow-xl w-full min-h-screen text-left mt-4">

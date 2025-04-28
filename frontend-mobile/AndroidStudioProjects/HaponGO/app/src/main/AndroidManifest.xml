@@ -25,6 +25,9 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
+            android:name=".LessonQuizActivity"
+            android:exported="false" />
+        <activity
             android:name=".Dictionary"
             android:exported="false" />
         <activity

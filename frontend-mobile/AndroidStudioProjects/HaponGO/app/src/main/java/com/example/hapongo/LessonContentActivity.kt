@@ -1,12 +1,18 @@
 package com.example.hapongo
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hapongo.adapter.LessonContentAdapter
+import com.example.hapongo.model.Lesson
+import com.example.hapongo.model.LessonQuizResponse
+import com.example.hapongo.model.User
 import com.example.hapongo.network.RetrofitInstance
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,6 +44,14 @@ class LessonContentActivity : AppCompatActivity() {
             fetchLessonContent(lessonId)
         } else {
             Toast.makeText(this, "Invalid Lesson ID", Toast.LENGTH_SHORT).show()
+        }
+
+        val quizBtn = findViewById<Button>(R.id.btnAnswerQuiz)
+        val currentLesson = intent.getSerializableExtra("quiz") as? Lesson
+        quizBtn.setOnClickListener {
+            val intent = Intent(this, LessonQuizActivity::class.java)
+            intent.putExtra("quiz", currentLesson)
+            startActivity(intent)
         }
     }
 

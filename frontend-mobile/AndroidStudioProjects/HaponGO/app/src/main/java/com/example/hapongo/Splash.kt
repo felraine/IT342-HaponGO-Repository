@@ -22,7 +22,7 @@ class Splash : AppCompatActivity() {
 
         // Delay before moving to MainActivity
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, Login::class.java))
             finish()
         }, 1500) // 1.5s
     }

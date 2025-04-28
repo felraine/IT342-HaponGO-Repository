@@ -1,7 +1,7 @@
 package com.example.hapongo.model
 
 data class LessonQuiz(
-    val questionId: Int? = null,
+    val questionId: Long? = null,
     val lesson: Lesson,
     val question: String,
     val choice1: String,

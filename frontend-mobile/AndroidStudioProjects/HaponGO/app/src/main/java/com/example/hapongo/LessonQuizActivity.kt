@@ -10,8 +10,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.hapongo.model.Lesson
-import com.example.hapongo.model.LessonQuiz
 import com.example.hapongo.model.LessonQuizResponse
 import com.example.hapongo.network.ApiService
 import com.example.hapongo.network.RetrofitInstance
@@ -32,7 +30,7 @@ class LessonQuizActivity : AppCompatActivity() {
         RetrofitInstance.api
     }
 
-    private var lessonId: Long = -1L // <- lesson ID that we will fetch quizzes for
+    private var lessonId: Long = -1L // lesson ID that we will fetch quizzes for
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +48,7 @@ class LessonQuizActivity : AppCompatActivity() {
         nextButton = findViewById(R.id.btnNext)
 
         // Get lessonId from Intent extras
-        lessonId = intent.getLongExtra("lessonId", -1)
+        lessonId = intent.getLongExtra("LESSON_ID", -1)
 
         if (lessonId != -1L) {
             loadQuizFromApi(lessonId)
@@ -59,6 +57,7 @@ class LessonQuizActivity : AppCompatActivity() {
             finish()
         }
 
+        // Set up button listeners
         choiceButtons.forEach { button ->
             button.setOnClickListener {
                 if (!answered) {
@@ -87,14 +86,14 @@ class LessonQuizActivity : AppCompatActivity() {
                 val response = apiService.getQuizzesByLessonId(lessonId)
                 if (response.isSuccessful && response.body() != null) {
                     quizList = response.body()!!
-                    showQuestion()
+                    showQuestion() // Show first question after loading quizzes
                 } else {
                     Toast.makeText(this@LessonQuizActivity, "Failed to load quizzes", Toast.LENGTH_SHORT).show()
-                    finish()
+                    finish() // Exit activity if no quizzes found
                 }
             } catch (e: Exception) {
                 Toast.makeText(this@LessonQuizActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
-                finish()
+                finish() // Exit activity in case of error
             }
         }
     }
@@ -112,6 +111,7 @@ class LessonQuizActivity : AppCompatActivity() {
         choiceButtons[2].text = currentQuiz.choice3
         choiceButtons[3].text = currentQuiz.choice4
 
+        // Reset buttons and make them clickable
         choiceButtons.forEach { button ->
             button.isEnabled = true
             button.setBackgroundResource(android.R.drawable.btn_default) // reset appearance
@@ -124,23 +124,26 @@ class LessonQuizActivity : AppCompatActivity() {
 
         resultText.visibility = View.VISIBLE
 
+        // Check if the selected answer is correct or wrong
         if (selectedAnswer == correctAnswer) {
             resultText.text = "Correct!"
-            resultText.setTextColor(Color.parseColor("#4CAF50")) // Green
+            resultText.setTextColor(Color.parseColor("#4CAF50")) // Green for correct answer
             resultText.setTypeface(null, Typeface.BOLD)
         } else {
             resultText.text = "Wrong!"
-            resultText.setTextColor(Color.parseColor("#F44336")) // Red
+            resultText.setTextColor(Color.parseColor("#F44336")) // Red for wrong answer
             resultText.setTypeface(null, Typeface.BOLD)
         }
 
+        // Disable all buttons after answering
         choiceButtons.forEach { it.isEnabled = false }
+
+        // Show the next button after answering
         nextButton.visibility = View.VISIBLE
     }
 
     private fun showQuizFinished() {
         Toast.makeText(this, "Quiz Finished!", Toast.LENGTH_SHORT).show()
-        finish()
+        finish() // End the activity after finishing the quiz
     }
 }
-

@@ -25,7 +25,7 @@ class LessonContentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_lesson_content) // <- this is your screen with RecyclerView + Back button
+        setContentView(R.layout.activity_lesson_content)
 
         lessonRecyclerView = findViewById(R.id.lessonRecyclerView)
         val btnBack = findViewById<ImageButton>(R.id.btnBack)
@@ -47,11 +47,14 @@ class LessonContentActivity : AppCompatActivity() {
         }
 
         val quizBtn = findViewById<Button>(R.id.btnAnswerQuiz)
-        val currentLesson = intent.getSerializableExtra("quiz") as? Lesson
         quizBtn.setOnClickListener {
-            val intent = Intent(this, LessonQuizActivity::class.java)
-            intent.putExtra("quiz", currentLesson)
-            startActivity(intent)
+            if (lessonId != -1L) {
+                val intent = Intent(this, LessonQuizActivity::class.java)
+                intent.putExtra("LESSON_ID", lessonId) // Pass only the lessonId
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "No lesson ID provided", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

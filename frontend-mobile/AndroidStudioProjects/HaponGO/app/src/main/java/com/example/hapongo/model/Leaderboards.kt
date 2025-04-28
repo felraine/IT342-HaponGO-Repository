@@ -1,7 +1,7 @@
 package com.example.hapongo.model
 
 data class Leaderboards(
-    val leaderboardId: Int? = null,
+    val leaderboardId: Long? = null,
     val user: User,
     val lessonId: Int,
     val points: Int,

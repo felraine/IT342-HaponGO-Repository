@@ -16,7 +16,7 @@ export default function Login() {
     //development http://localhost:8080/api/lesson-contents/lesson/${lessonId}
     try {
       const response = await fetch(
-        `http://localhost:8080/api/users/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`,
+        `https://hapongo-backend-819908927275.asia-southeast1.run.app/api/users/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`,
         {
           method: "POST",
         }

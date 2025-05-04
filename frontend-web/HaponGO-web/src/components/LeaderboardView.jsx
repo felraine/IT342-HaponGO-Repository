@@ -5,7 +5,7 @@ const Leaderboard = () => {
   const navigate = useNavigate();
   const [leaderboards, setLeaderboards] = useState([]);
   const [lessons, setLessons] = useState([]);
-  const [selectedLesson, setSelectedLesson] = useState('');
+  const [selectedLesson, setSelectedLesson] = useState('overall');
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -24,27 +24,53 @@ const Leaderboard = () => {
       const data = await res.json();
       const sortedLessons = [...data].sort((a, b) => a.lessonOrder - b.lessonOrder);
       setLessons(sortedLessons);
-
-      if (sortedLessons.length > 0) {
-        setSelectedLesson(sortedLessons[0].lessonId); // Default to first lesson
-      }
     };
     fetchLessons();
   }, []);
 
   useEffect(() => {
-    if (!selectedLesson) return;
-
     const fetchLeaderboard = async () => {
-      const url = `https://hapongo-backend-819908927275.asia-southeast1.run.app/api/leaderboards/lesson/${selectedLesson}/top`;
-      const res = await fetch(url);
-      const data = await res.json();
-      
-      // SORT THE LEADERBOARD BASED ON POINTS (Descending)
-      const sortedData = [...data].sort((a, b) => b.points - a.points);
+      try {
+        let url;
+        if (selectedLesson === 'overall') {
+          // Get all leaderboard entries (not just top10)
+          url = 'https://hapongo-backend-819908927275.asia-southeast1.run.app/api/leaderboards/top10';
+        } else {
+          url = `https://hapongo-backend-819908927275.asia-southeast1.run.app/api/leaderboards/lesson/${selectedLesson}/top`;
+        }
 
-      setLeaderboards(sortedData);
+        const res = await fetch(url);
+        const data = await res.json();
+
+        let processedData;
+
+        if (selectedLesson === 'overall') {
+          if (Array.isArray(data)) {
+            const aggregated = {};
+
+            data.forEach(entry => {
+              const userId = entry.user.userId;
+              if (!aggregated[userId]) {
+                aggregated[userId] = { ...entry, points: 0 };
+              }
+              aggregated[userId].points += entry.points;
+            });
+
+            processedData = Object.values(aggregated).sort((a, b) => b.points - a.points);
+          } else {
+            console.error('Unexpected data format:', data);
+            processedData = [];
+          }
+        } else {
+          processedData = Array.isArray(data) ? [...data].sort((a, b) => b.points - a.points) : [];
+        }
+
+        setLeaderboards(processedData);
+      } catch (err) {
+        console.error('Error fetching leaderboard:', err);
+      }
     };
+
     fetchLeaderboard();
   }, [selectedLesson]);
 
@@ -116,6 +142,7 @@ const Leaderboard = () => {
               onChange={(e) => setSelectedLesson(e.target.value)}
               className="px-4 py-2 border border-grey-300 focus:outline-none focus:ring-2 bg-white bg-[url('data:image/svg+xml;utf8,<svg fill=\'%2364A91B\' height=\'20\' viewBox=\'0 0 24 24\' width=\'20\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M7 10l5 5 5-5H7z\'/></svg>')] bg-no-repeat bg-[right_1rem_center] bg-[length:1.25rem_1.25rem]"
             >
+              <option value="overall">Overall</option>
               {lessons.map((lesson) => (
                 <option key={lesson.lessonId} value={lesson.lessonId}>
                   {lesson.lessonName}

@@ -20,7 +20,7 @@ const Leaderboard = () => {
 
   useEffect(() => {
     const fetchLessons = async () => {
-      const res = await fetch('http://localhost:8080/api/lessons');
+      const res = await fetch('https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lessons');
       const data = await res.json();
       const sortedLessons = [...data].sort((a, b) => a.lessonOrder - b.lessonOrder);
       setLessons(sortedLessons);
@@ -36,7 +36,7 @@ const Leaderboard = () => {
     if (!selectedLesson) return;
 
     const fetchLeaderboard = async () => {
-      const url = `http://localhost:8080/api/leaderboards/lesson/${selectedLesson}/top`;
+      const url = `https://hapongo-backend-819908927275.asia-southeast1.run.app/api/leaderboards/lesson/${selectedLesson}/top`;
       const res = await fetch(url);
       const data = await res.json();
       
@@ -100,7 +100,7 @@ const Leaderboard = () => {
       {/* Navigation */}
       <div className="flex flex-row items-center gap-4 mx-auto mt-12 text-left">
         <a href="/dashboard" className="text-black text-[20px] lg:text-[22px] pl-20">Lessons</a>
-        <h2 className="text-black text-[20px] lg:text-[22px] pl-20">Dictionary</h2>
+        <a href="/dictionary" className="text-black text-[20px] lg:text-[22px] pl-20">Dictionary</a>
         <a href="/leaderboard" className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Leaderboards</a>
       </div>
 

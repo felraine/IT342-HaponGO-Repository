@@ -110,7 +110,7 @@ export default function PaymentScreen() {
         console.error("User ID not found in localStorage.");
         return;
       }
-      await axios.put(`http://localhost:8080/api/users/confirm_payment/${userId}`);
+      await axios.put(`https://hapongo-backend-819908927275.asia-southeast1.run.app/api/users/confirm_payment/${userId}`);
       console.log('✅ User subscription confirmed on backend.');
     } catch (error) {
       console.error('Error confirming payment on server:', error);

@@ -26,13 +26,13 @@ export default function LessonPage() {
       // Fetching the lesson data by its ID
       //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
       //development http://localhost:8080/api/lesson-contents/lesson/${lessonId}
-      const lessonResponse = await fetch(`http://localhost:8080/api/lessons/${id}`);
+      const lessonResponse = await fetch(`https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lessons/${id}`);
       const lessonData = await lessonResponse.json();
   
       // Fetching the lesson content data
       //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
       //development http://localhost:8080/api/lesson-contents/lesson/${lessonId}
-      const contentResponse = await fetch(`http://localhost:8080/api/lesson-contents/lesson/${id}`);
+      const contentResponse = await fetch(`https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${id}`);
       const contentData = await contentResponse.json();
   
       // Set the lesson name and content data
@@ -65,7 +65,7 @@ export default function LessonPage() {
     try {
       //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
       //development http://localhost:8080/api/lesson-contents/lesson/${lessonId}
-      const response = await fetch(`http://localhost:8080/api/lesson-contents/${termId}`, {
+      const response = await fetch(`https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/${termId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -89,7 +89,7 @@ export default function LessonPage() {
 
   const handleDelete = async (termId) => {
     try {
-      await fetch(`http://localhost:8080/api/lesson-contents/${termId}`, { method: "DELETE" });
+      await fetch(`https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/${termId}`, { method: "DELETE" });
       setLessonContent((prev) => prev.filter((item) => item.lessonContentId !== termId));
     } catch (error) {
       console.error("Error deleting:", error);
@@ -113,7 +113,7 @@ export default function LessonPage() {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/api/lesson-contents", {
+      const response = await fetch("https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newLessonContent),

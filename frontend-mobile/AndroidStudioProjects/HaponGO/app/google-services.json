@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "665628323619",
+    "project_id": "hapongo-a5ade",
+    "storage_bucket": "hapongo-a5ade.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665628323619:android:08b1a0a453024ea50a2696",
+        "android_client_info": {
+          "package_name": "com.example.hapongo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "665628323619-ca0vkchcsjui5oku24nc8bp89nptmvrd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hapongo",
+            "certificate_hash": "9b54bff79a1ce2671e8497c7e1809d1b34c2c2f5"
+          }
+        },
+        {
+          "client_id": "665628323619-dv4cqs4vhtk8jpi0t2cd7t0oivn5lfdb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBS1CcToXfiagKbpckFdUmIFLSq-ekW-e4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "665628323619-dv4cqs4vhtk8jpi0t2cd7t0oivn5lfdb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

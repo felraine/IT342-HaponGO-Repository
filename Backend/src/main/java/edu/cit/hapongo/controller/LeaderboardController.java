@@ -6,12 +6,10 @@ import edu.cit.hapongo.model.Lesson;
 import edu.cit.hapongo.service.LeaderboardService;
 import edu.cit.hapongo.repository.LessonRepository;
 import edu.cit.hapongo.repository.UserRepository;
-import edu.cit.hapongo.dto.OverallLeaderboardProjection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -85,8 +83,8 @@ public class LeaderboardController {
     }
 
     @GetMapping("/top10")
-    public ResponseEntity<List<OverallLeaderboardProjection>> getTop10OverallLeaderboard() {
-        List<OverallLeaderboardProjection> top10 = leaderboardService.getTop10OverallLeaderboard(PageRequest.of(0, 10));
+    public ResponseEntity<List<Leaderboards>> getTop10OverallLeaderboards() {
+        List<Leaderboards> top10 = leaderboardService.getTop10OverallLeaderboards();
         return ResponseEntity.ok(top10);
     }
 }

@@ -1,11 +1,11 @@
-package com.example.hapongo
+package com.example.hapongo.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hapongo.R
 import com.example.hapongo.model.Lesson
 
 class LessonAdapter(private val onItemClick: (Lesson) -> Unit) : RecyclerView.Adapter<LessonAdapter.LessonViewHolder>() {

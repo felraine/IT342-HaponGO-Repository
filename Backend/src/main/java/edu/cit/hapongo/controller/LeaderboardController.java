@@ -6,6 +6,7 @@ import edu.cit.hapongo.model.Lesson;
 import edu.cit.hapongo.service.LeaderboardService;
 import edu.cit.hapongo.repository.LessonRepository;
 import edu.cit.hapongo.repository.UserRepository;
+import edu.cit.hapongo.repository.projections.UserTotalPoints;
 import edu.cit.hapongo.dto.OverallLeaderboardProjection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,5 +89,11 @@ public class LeaderboardController {
     public ResponseEntity<List<OverallLeaderboardProjection>> getTop10OverallLeaderboard() {
         List<OverallLeaderboardProjection> top10 = leaderboardService.getTop10OverallLeaderboard(PageRequest.of(0, 10));
         return ResponseEntity.ok(top10);
+    }
+
+    @GetMapping("/userTotal/{userId}")
+    public ResponseEntity<UserTotalPoints> getUserPointsById(@PathVariable Long userId) {
+        Optional<UserTotalPoints> userPointsOptional = leaderboardService.getUserPoints(userId);
+        return ResponseEntity.ok(userPointsOptional.orElse(null));
     }
 }

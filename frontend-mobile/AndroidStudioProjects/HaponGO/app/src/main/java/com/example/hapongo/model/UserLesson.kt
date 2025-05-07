@@ -1,7 +1,7 @@
 package com.example.hapongo.model
 
 data class UserLesson(
-    val id: Int? = null,
+    val id: Long? = null,
     val user: User,
     val lesson: Lesson,
     val isActive: Boolean,

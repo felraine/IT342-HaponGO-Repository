@@ -4,6 +4,7 @@ import com.example.hapongo.model.Dictionary
 import com.example.hapongo.model.Lesson
 import com.example.hapongo.model.User
 import com.example.hapongo.model.LessonContent
+import com.example.hapongo.model.LessonQuizResponse
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
@@ -99,4 +100,8 @@ interface ApiService {
     suspend fun getLessonContentsByLessonId(
         @Path("lessonId") lessonId: Long
     ): Response<List<LessonContent>>
+
+    // ----------Quiz------------
+    @GET("lesson-quizzes/lesson/{lessonId}")
+    suspend fun getQuizzesByLessonId(@Path("lessonId") lessonId: Long): Response<List<LessonQuizResponse>>
 }

@@ -2,6 +2,7 @@ package com.example.hapongo
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -10,8 +11,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hapongo.model.Lesson
-import com.example.hapongo.network.ApiService
+import com.example.hapongo.adapter.LessonAdapter
+import com.example.hapongo.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -44,9 +45,18 @@ class Homepage : AppCompatActivity() {
         fetchLessons()
 
         // Profile image click listener (as before)
+        val currentUser = intent.getSerializableExtra("user") as? User
         val imgProfile: ImageView = findViewById(R.id.imgProfile)
         imgProfile.setOnClickListener {
-            // Open profile page (existing logic)
+            val intent = Intent(this, ProfilePage::class.java)
+            intent.putExtra("user", currentUser)
+            startActivity(intent)
+        }
+
+        val menu = findViewById<ImageButton>(R.id.btnMenu)
+        menu.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 

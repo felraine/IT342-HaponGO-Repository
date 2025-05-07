@@ -31,7 +31,7 @@ const LessonView = () => {
       //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
       //development http://localhost:8080/api/lesson-contents/lesson/${lessonId}
       try {
-        const response = await fetch(`http://localhost:8080/api/lesson-contents/lesson/${lessonId}`);
+        const response = await fetch(`https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}`);
         if (!response.ok) throw new Error('Failed to fetch lesson content');
         const data = await response.json();
       
@@ -47,7 +47,7 @@ const LessonView = () => {
       try {
         //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
         //development http://localhost:8080/api/lesson-contents/lesson/${lessonId}
-        const response = await fetch(`http://localhost:8080/api/lessons/${lessonId}`);
+        const response = await fetch(`https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lessons/${lessonId}`);
         if (!response.ok) throw new Error('Failed to fetch lesson name');
         const data = await response.json();
         setLessonName(data.lessonName);

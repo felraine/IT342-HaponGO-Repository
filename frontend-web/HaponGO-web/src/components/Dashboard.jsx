@@ -26,7 +26,7 @@ export default function Dashboard() {
       try {
         //production https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-contents/lesson/${lessonId}
         //development http://localhost:8080/api/lesson-contents/lesson/${lessonId}
-        const response = await fetch('http://localhost:8080/api/lessons');
+        const response = await fetch('https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lessons');
         const data = await response.json();
         setLessons(data);
       } catch (err) {
@@ -99,7 +99,7 @@ export default function Dashboard() {
       <div className="flex flex-row items-center gap-4 mx-auto mt-12 text-left">
         {/* Placeholder for the navigation bar */}
         <h2 className="text-black text-[20px] lg:text-[22px] font-bold pl-20">Lessons</h2>
-        <h2 className="text-black text-[20px] lg:text-[22px] pl-20">Dictionary</h2>
+        <a href="/dictionary" className="text-black text-[20px] lg:text-[22px] pl-20">Dictionary</a>
         <a href="/leaderboard" className="text-black text-[20px] lg:text-[22px] pl-20">Leaderboards</a>
       </div>
 

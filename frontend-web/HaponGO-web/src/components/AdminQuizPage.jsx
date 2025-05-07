@@ -26,10 +26,10 @@ export default function LessonQuizPage() {
 
   const fetchQuizData = async () => {
     try {
-      const lessonResponse = await fetch(`http://localhost:8080/api/lessons/${id}`);
+      const lessonResponse = await fetch(`https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lessons/${id}`);
       const lessonData = await lessonResponse.json();
 
-      const quizResponse = await fetch(`http://localhost:8080/api/lesson-quizzes/lesson/${id}`);
+      const quizResponse = await fetch(`https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-quizzes/lesson/${id}`);
       const quizData = await quizResponse.json();
 
       setLessonName(lessonData?.lessonName || "");
@@ -66,7 +66,7 @@ export default function LessonQuizPage() {
     console.log("Quiz data before saving:", quiz);
   
     try {
-      const response = await fetch(`http://localhost:8080/api/lesson-quizzes/${quizId}`, {
+      const response = await fetch(`https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-quizzes/${quizId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -94,7 +94,7 @@ export default function LessonQuizPage() {
 
   const handleDelete = async (quizId) => {
     try {
-      await fetch(`http://localhost:8080/api/lesson-quizzes/${quizId}`, { method: "DELETE" });
+      await fetch(`https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-quizzes/${quizId}`, { method: "DELETE" });
       setQuizzes((prev) => prev.filter((quiz) => quiz.questionId !== quizId));
     } catch (error) {
       console.error("Error deleting quiz:", error);
@@ -117,7 +117,7 @@ export default function LessonQuizPage() {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/api/lesson-quizzes", {
+      const response = await fetch("https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-quizzes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newLessonQuiz),

@@ -7,10 +7,12 @@ import edu.cit.hapongo.service.LeaderboardService;
 import edu.cit.hapongo.repository.LessonRepository;
 import edu.cit.hapongo.repository.UserRepository;
 import edu.cit.hapongo.repository.projections.UserTotalPoints;
+import edu.cit.hapongo.dto.OverallLeaderboardProjection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,8 +32,8 @@ public class LeaderboardController {
 
     @PostMapping("/update")
     public ResponseEntity<Leaderboards> addOrUpdatePoints(
-            @RequestParam Long userId,   
-            @RequestParam Long lessonId, 
+            @RequestParam Long userId,
+            @RequestParam Long lessonId,
             @RequestParam int points) {
 
         Optional<User> userOpt = userRepository.findById(userId);
@@ -41,17 +43,13 @@ public class LeaderboardController {
             return ResponseEntity.notFound().build();
         }
 
-        User user = userOpt.get();
-        Lesson lesson = lessonOpt.get();
-
-        Leaderboards leaderboard = leaderboardService.addOrUpdatePoints(user, lesson, points);
-        
+        Leaderboards leaderboard = leaderboardService.addOrUpdatePoints(userOpt.get(), lessonOpt.get(), points);
         return ResponseEntity.ok(leaderboard);
     }
 
     @GetMapping("/user/{userId}/lesson/{lessonId}")
     public ResponseEntity<Leaderboards> getLeaderboardByUserAndLesson(
-            @PathVariable Long userId,   
+            @PathVariable Long userId,
             @PathVariable Long lessonId) {
 
         Optional<User> userOpt = userRepository.findById(userId);
@@ -61,46 +59,36 @@ public class LeaderboardController {
             return ResponseEntity.notFound().build();
         }
 
-        User user = userOpt.get();
-        Lesson lesson = lessonOpt.get();
-
-        Optional<Leaderboards> leaderboard = leaderboardService.getLeaderboardByUserAndLesson(user, lesson);
-
+        Optional<Leaderboards> leaderboard = leaderboardService.getLeaderboardByUserAndLesson(userOpt.get(), lessonOpt.get());
         return leaderboard.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Leaderboards>> getLeaderboardsForUser(@PathVariable Long userId) {
         Optional<User> userOpt = userRepository.findById(userId);
-
         if (!userOpt.isPresent()) {
             return ResponseEntity.notFound().build();
         }
 
-        User user = userOpt.get();
-        List<Leaderboards> leaderboards = leaderboardService.getLeaderboardsForUser(user);
-
+        List<Leaderboards> leaderboards = leaderboardService.getLeaderboardsForUser(userOpt.get());
         return ResponseEntity.ok(leaderboards);
     }
 
     @GetMapping("/lesson/{lessonId}/top")
     public ResponseEntity<List<Leaderboards>> getTopLeaderboardForLesson(@PathVariable Long lessonId) {
         Optional<Lesson> lessonOpt = lessonRepository.findById(lessonId);
-
         if (!lessonOpt.isPresent()) {
             return ResponseEntity.notFound().build();
         }
 
-        Lesson lesson = lessonOpt.get();
-        List<Leaderboards> leaderboards = leaderboardService.getTopLeaderboardForLesson(lesson);
-
+        List<Leaderboards> leaderboards = leaderboardService.getTopLeaderboardForLesson(lessonOpt.get());
         return ResponseEntity.ok(leaderboards);
     }
 
     @GetMapping("/top10")
-    public ResponseEntity<List<Leaderboards>> getTop10LeaderboardOverall() {
-        List<Leaderboards> leaderboards = leaderboardService.getTop10LeaderboardOverall();
-        return ResponseEntity.ok(leaderboards);
+    public ResponseEntity<List<OverallLeaderboardProjection>> getTop10OverallLeaderboard() {
+        List<OverallLeaderboardProjection> top10 = leaderboardService.getTop10OverallLeaderboard(PageRequest.of(0, 10));
+        return ResponseEntity.ok(top10);
     }
 
     @GetMapping("/userTotal/{userId}")

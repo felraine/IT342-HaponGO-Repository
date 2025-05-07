@@ -7,6 +7,8 @@ import edu.cit.hapongo.model.Lesson;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import edu.cit.hapongo.dto.OverallLeaderboardProjection;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,4 +25,9 @@ public interface LeaderboardRepository extends JpaRepository<Leaderboards, Long>
                    "WHERE u.user_id = :userId " +
                    "GROUP BY u.user_id, u.name", nativeQuery = true)
     List<UserTotalPoints> findUserTotalPoints(@Param("userId") Long userId);
+    @Query("SELECT lb.user.userId AS userId, lb.user.name AS userName, SUM(lb.points) AS totalPoints " +
+       "FROM Leaderboards lb " +
+       "GROUP BY lb.user.userId, lb.user.name " +
+       "ORDER BY totalPoints DESC")
+    List<OverallLeaderboardProjection> findTop10OverallLeaderboard(Pageable pageable);
 }

@@ -81,7 +81,7 @@ const QuizView = () => {
       // Logging the parameters b efore submitting
       console.log('Submitting:', { userId, lessonId, points: score });
 
-      const url = new URL('http://localhost:8080/api/leaderboards/update');
+      const url = new URL('https://hapongo-backend-819908927275.asia-southeast1.run.app/api/leaderboards/update');
       url.searchParams.append('userId', userId);
       url.searchParams.append('lessonId', lessonId);
       url.searchParams.append('points', score);
@@ -109,13 +109,13 @@ const QuizView = () => {
 
   useEffect(() => {
     const fetchQuiz = async () => {
-      const res = await fetch(`http://localhost:8080/api/lesson-quizzes/lesson/${lessonId}`);
+      const res = await fetch(`https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lesson-quizzes/lesson/${lessonId}`);
       const data = await res.json();
       setQuizzes(data);
     };
 
     const fetchLesson = async () => {
-      const res = await fetch(`http://localhost:8080/api/lessons/${lessonId}`);
+      const res = await fetch(`https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lessons/${lessonId}`);
       const data = await res.json();
       setLessonName(data.lessonName);
     };

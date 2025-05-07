@@ -24,7 +24,7 @@ export default function Dashboard() {
 
   const fetchLessons = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/lessons');
+      const response = await fetch('https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lessons');
       const data = await response.json();
       setLessons(data);
     } catch (err) {
@@ -35,7 +35,7 @@ export default function Dashboard() {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/users/admin/get_all_users');
+      const response = await fetch('https://hapongo-backend-819908927275.asia-southeast1.run.app/api/users/admin/get_all_users');
       if (!response.ok) throw new Error(`Server error: ${response.status}`);
       const data = await response.json();
       if (!Array.isArray(data)) throw new Error('Expected an array but got something else.');
@@ -61,7 +61,7 @@ export default function Dashboard() {
     const newLesson = { lessonName, lessonOrder: parseInt(lessonOrder) };
 
     try {
-      const response = await fetch('http://localhost:8080/api/lessons/save', {
+      const response = await fetch('https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lessons/save', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newLesson),
@@ -102,7 +102,7 @@ export default function Dashboard() {
     const updatedLesson = { lessonName, lessonOrder: parseInt(lessonOrder) };
 
     try {
-      const response = await fetch(`http://localhost:8080/api/lessons/${currentLessonId}`, {
+      const response = await fetch(`https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lessons/${currentLessonId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedLesson),
@@ -129,7 +129,7 @@ export default function Dashboard() {
 
   const handleDeleteLesson = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/lessons/${id}`, {
+      const response = await fetch(`https://hapongo-backend-819908927275.asia-southeast1.run.app/api/lessons/${id}`, {
         method: 'DELETE',
       });
       if (!response.ok) {
